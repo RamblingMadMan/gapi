@@ -1,5 +1,8 @@
 PWD:=$(shell pwd)
+SRC_DIR:=$(PWD)
 BUILD_DIR?=$(PWD)/build
+
+DESTDIR?=/usr/local/
 
 CXX:=g++-6
 CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
@@ -23,13 +26,15 @@ $(error bad BUILD_TYPE $(BUILD_TYPE). valid options are debug and release)
 endif
 endif
 
+export SRC_DIR
 export BUILD_DIR
+export DESTDIR
 export CXX
 export CXXFLAGS
 export LDFLAGS
 export LIBS
 
-.PHONY: all src clean
+.PHONY: all src install clean
 
 all: dir src
 
@@ -40,6 +45,9 @@ dir: | $(BUILD_DIR)
 
 $(BUILD_DIR):
 	mkdir -p $@
+
+install:
+	$(MAKE) -C src install
 
 clean:
 	$(MAKE) -C src clean
