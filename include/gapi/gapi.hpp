@@ -1,6 +1,8 @@
 #ifndef GAPI_HPP
 #define GAPI_HPP 1
 
+#include <boost/core/demangle.hpp>
+
 #include "exception.hpp"
 #include "known.hpp"
 
@@ -21,16 +23,16 @@ namespace gapi{
 			class type_tag{ public: using type = T; };
 
 			template<std::size_t ... Indices, typename T>
-			void test_args_impl(std::index_sequence<Indices...>, T &&vec){
+			void test_args_impl(std::index_sequence<Indices...>, const char *name, T &&vec){
 				([&](auto idx, auto type){
 					if(std::string(vec[idx].second) != typeid(typename decltype(type)::type).name())
-						throw gapi_error{"argument "s + std::to_string(idx) + " not of known type for argument ("s + vec[idx].second + ")"};
+						throw gapi_error{"argument "s + std::to_string(idx) + " not of known type for " + name + ". expected type was " + boost::core::demangle(vec[id].second)};
 				}(Indices, type_tag<Args>{}), ...);
 			}
 
 			template<typename T>
-			void test_args(T &&vec){
-				test_args_impl(std::index_sequence_for<Args...>{}, std::forward<T>(vec));
+			void test_args(const char *name, T &&vec){
+				test_args_impl(std::index_sequence_for<Args...>{}, name, std::forward<T>(vec));
 			}
 
 		public:

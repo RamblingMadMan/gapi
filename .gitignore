@@ -1,2 +1,5 @@
 build
 */uninstall.sh
+spec_parser/known.hpp
+spec_parser/spec_parser*
+gapi_*

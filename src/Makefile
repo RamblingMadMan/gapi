@@ -3,6 +3,9 @@ OUT:=$(BUILD_DIR)/libgapi.la
 SOURCES:=context.cpp
 OBJECTS:=$(addprefix $(BUILD_DIR)/objs/,$(SOURCES:.cpp=.lo))
 
+CXXFLAGS:=$(shell pkg-config gl --cflags) $(CXXFLAGS)
+LIBS:=$(LIBS) $(shell pkg-config gl --libs)
+
 HEADER_FOLDER:=$(SRC_DIR)/include/gapi
 
 .PHONY: all install clean
