@@ -26,7 +26,7 @@ namespace gapi{
 			void test_args_impl(std::index_sequence<Indices...>, const char *name, T &&vec){
 				([&](auto idx, auto type){
 					if(std::string(vec[idx].second) != typeid(typename decltype(type)::type).name())
-						throw gapi_error{"argument "s + std::to_string(idx) + " not of known type for " + name + ". expected type was " + boost::core::demangle(vec[id].second)};
+						throw gapi_error{"argument "s + std::to_string(idx) + " for " + name + " not of expected type " + boost::core::demangle(vec[idx].second)};
 				}(Indices, type_tag<Args>{}), ...);
 			}
 
@@ -44,7 +44,7 @@ namespace gapi{
 					else if(sizeof...(Args) != k.args.size())
 						throw gapi_error{"number of arguments doesn't match known number of arguments for "s + name};
 					
-					test_args(k.args);
+					test_args(name, k.args);
 				}
 				fptr = reinterpret_cast<Ret(*)(Args...)>(detail::get_gl_fp(name));
 				if(!fptr)
