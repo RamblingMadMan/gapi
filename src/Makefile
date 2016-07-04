@@ -20,10 +20,22 @@ $(OUT): $(OBJECTS)
 $(BUILD_DIR)/objs/%.lo: %.cpp
 	libtool --mode=compile --tag=CXX $(CXX) -fPIC $(CXXFLAGS) -c $< -o $@
 
-install: all
-	cp -r $(HEADER_FOLDER) $(DESTDIR)/include/gapi
+install-dir: | $(DESTDIR)/include/gapi $(DESTDIR)/lib
+
+$(DESTDIR)/include/gapi:
+	mkdir -p $@
+
+$(DESTDIR)/lib:
+	mkdir -p $@
+
+install: all install-dir
+	echo '#!/bin/bash' > uninstall.sh
+	chmod +x uninstall.sh
+	cp -r $(HEADER_FOLDER) $(DESTDIR)/include
 	libtool --mode=install cp $(OUT) $(DESTDIR)/lib/libgapi.la
-	echo $(DEST_DIR)/gapi > install-manifest.txt
+	echo libtool --mode=uninstall rm -f $(DESTDIR)/lib/libgapi.la >> uninstall.sh
+	echo rm -rf $(DESTDIR)/include/glapi >> uninstall.sh
+	libtool --finish $(DESTDIR)/lib
 
 clean:
 	rm -rf $(OUT) $(OBJECTS)
