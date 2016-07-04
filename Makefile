@@ -6,7 +6,7 @@ DESTDIR?=/usr/local/
 
 CXX:=g++-6
 CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
-LDFLAGS?=-rpath /usr/local/lib -version-info 1:0:1
+LDFLAGS?=-rpath $(DESTDIR)/lib -version-info 1:0:1
 LIBS?=
 
 OPTFLAGS_DEBUG?=-O2 -g
