@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <future>
+#include <functional>
+#include <typeinfo>
 
 #include <boost/property_tree/xml_parser.hpp>
 
@@ -106,8 +108,7 @@ auto main() -> int{
 				"\t};\n" // end of class
 				"}\n" // end of namespace
 				"\n"
-				"#endif // GAPI_KNOWN_HPP\n" // end of file
-				"\n";
+				"#endif // GAPI_KNOWN_HPP\n"; // end of file
 	}
 	{
 		std::ofstream out{"functions.hpp"};
@@ -119,6 +120,26 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
-				"#ifdef GAPI_FUNCTIONS_COMPILATION "
+				"#ifdef GAPI_FUNCTIONS_COMPILATION\n"
+				"#define FUNC(sig, name) gl_function<sig> name{noinit, #name}\n"
+				"#else\n"
+				"#define FUNC(sig, name) extern gl_function<sig> name\n"
+				"#endif // GAPI_FUNCTIONS_COMPILATION\n"
+				"\n"
+				"namespace gapi{\n"; // start of namespace
+				for(auto &&func : funcs){
+		out	<<	"\tFUNC(" << func.ret << '(';
+					for(std::size_t i = 0; i < func.args.size(); i++){
+		out	<<	func.args[i].second;
+						if(i < (func.args.size()-1))
+							out << ", ";
+					}
+		out	<<	"), " << func.name << ");\n";
+				}
+		out	<<	"}\n" // end of namespace
+				"\n"
+				"#undef FUNC\n"
+				"\n"
+				"#endif // GAPI_FUNCTIONS_HPP\n";
 	}
 }

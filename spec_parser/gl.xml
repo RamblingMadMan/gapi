@@ -2363,7 +2363,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
         <function name="glTexBuffer" type="void">
           <param name="target" type="GLenum"/>
           <param name="internalFormat" type="GLenum"/>
-          <param name="buffer" type="Gluint"/>
+          <param name="buffer" type="GLuint"/>
         </function>
       </functions>
       <functions>
