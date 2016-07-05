@@ -109,4 +109,16 @@ auto main() -> int{
 				"#endif // GAPI_KNOWN_HPP\n" // end of file
 				"\n";
 	}
+	{
+		std::ofstream out{"functions.hpp"};
+		if(!out){
+			std::cerr << "could not create/open output file functions.hpp\n";
+			std::exit(EXIT_FAILURE);
+		}
+
+		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
+				"#define GAPI_FUNCTIONS_HPP 1\n"
+				"\n"
+				"#ifdef GAPI_FUNCTIONS_COMPILATION "
+	}
 }
