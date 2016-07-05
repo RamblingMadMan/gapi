@@ -1492,4 +1492,3 @@ namespace gapi{
 }
 
 #endif // GAPI_KNOWN_HPP
-
