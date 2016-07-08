@@ -120,6 +120,8 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
+				"#include \"gapi.hpp\"\n"
+				"\n"
 				"#ifdef GAPI_FUNCTIONS_COMPILATION\n"
 				"#define FUNC(sig, name) gl_function<sig> name{noinit, #name}\n"
 				"#else\n"
