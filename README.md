@@ -31,7 +31,7 @@ auto main() -> int{
 }
 ```
 
-Any functions that the library already knows the name of will be checked for the correct return type and parameter types. An exception will be thrown if the wrong types are specified in the template parameter.
+Any functions that the library already knows the name of will be checked for the correct return type and parameter types. An exception will be thrown if the wrong types are specified for the template parameters.
 
 You can have an OpenGL function be initialized when it is called for the first time by declaring it like so:
 
