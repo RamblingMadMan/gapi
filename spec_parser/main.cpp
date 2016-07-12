@@ -158,17 +158,19 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
-				"namespace gapi{\n"; // start of namespace
+				"namespace gapi{\n" // start of namespace
+				"\tnamespace functions{\n";
 				for(auto &&func : funcs){
-		out	<<	"\tgl_function<" << func.ret << '(';
+		out	<<	"\t\tgl_function<" << func.ret << '(';
 					for(std::size_t i = 0; i < func.args.size(); i++){
 		out	<<	func.args[i].second;
 						if(i < (func.args.size()-1))
 							out << ", ";
 					}
-		out	<<	")> " << func.name << "{deferred_init};\n";
+		out	<<	")> " << func.name << "{deferred_init, \"" << func.name << "\"};\n";
 				}
-		out	<<	"}\n" // end of namespace
+		out	<<	"\t}\n" // end of functions namespace
+				"}\n" // end of gapi namespace
 				"\n"
 				"#undef FUNC\n"
 				"\n"
