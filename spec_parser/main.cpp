@@ -5,11 +5,17 @@
 #include <future>
 #include <functional>
 #include <typeinfo>
+#include <chrono>
+#include <mutex>
 
 #include <boost/property_tree/xml_parser.hpp>
 
 auto main() -> int{
 	namespace pt = boost::property_tree;
+
+	using Clock = std::chrono::high_resolution_clock;
+	using std::chrono::nanoseconds;
+	using std::chrono::duration_cast;
 
 	std::ifstream file{"gl.xml"};
 
@@ -24,6 +30,7 @@ auto main() -> int{
 	};
 
 	std::vector<fn> funcs;
+	std::vector<std::pair<std::string, std::string>> consts;
 
 	for(auto &&root : tree.get_child("module")){
 		if(root.first == "libraries")
@@ -57,6 +64,16 @@ auto main() -> int{
 					funcs.push_back(f);
 				}
 			}
+		else if(root.first == "consts"){
+			for(auto &&const_ : root.second.get_child("const")){
+				std::cout << const_.first << std::endl;
+				if(const_.first == "<xmlattr>"){
+					auto name = const_.second.get<std::string>("name");
+					auto value = const_.second.get<std::string>("value");
+					consts.emplace_back(std::move(name), std::move(value));
+				}
+			}
+		}
 	}
 
 	{
@@ -111,6 +128,27 @@ auto main() -> int{
 				"#endif // GAPI_KNOWN_HPP\n"; // end of file
 	}
 	{
+		std::ofstream out{"basic_types.hpp"};
+		if(!out){
+			std::cerr << "could not create/open output file basic_types.hpp\n";
+			std::exit(EXIT_FAILURE);
+		}
+
+		out <<	"#ifndef GAPI_BASIC_TYPES_HPP\n"
+				"#define GAPI_BASIC_TYPES_HPP 1\n"
+				"\n"
+				"#include <cstdint>\n"
+				"\n"
+				"namespace gapi{\n" // start namespace
+				"\tenum class GLenum{\n";
+				for(auto &&c : consts)
+		out	<<	"\t\t" << c.first << " = " << c.second << ",\n";
+		out	<<	"\t};\n"
+				"}\n" // end namespace
+				"\n"
+				"#endif // GAPI_BASIC_TYPES_HPP\n";
+	}
+	{
 		std::ofstream out{"functions.hpp"};
 		if(!out){
 			std::cerr << "could not create/open output file functions.hpp\n";
@@ -120,21 +158,15 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
-				"#ifdef GAPI_FUNCTIONS_COMPILATION\n"
-				"#define FUNC(sig, name) gl_function<sig> name{noinit, #name}\n"
-				"#else\n"
-				"#define FUNC(sig, name) extern gl_function<sig> name\n"
-				"#endif // GAPI_FUNCTIONS_COMPILATION\n"
-				"\n"
 				"namespace gapi{\n"; // start of namespace
 				for(auto &&func : funcs){
-		out	<<	"\tFUNC(" << func.ret << '(';
+		out	<<	"\tgl_function<" << func.ret << '(';
 					for(std::size_t i = 0; i < func.args.size(); i++){
 		out	<<	func.args[i].second;
 						if(i < (func.args.size()-1))
 							out << ", ";
 					}
-		out	<<	"), " << func.name << ");\n";
+		out	<<	")> " << func.name << "{deferred_init};\n";
 				}
 		out	<<	"}\n" // end of namespace
 				"\n"

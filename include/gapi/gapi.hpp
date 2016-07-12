@@ -1,5 +1,5 @@
-#ifndef GAPI_HPP
-#define GAPI_HPP 1
+#ifndef GAPI_GAPI_HPP
+#define GAPI_GAPI_HPP 1
 
 #include <boost/core/demangle.hpp>
 
@@ -16,12 +16,18 @@ namespace gapi{
 	template<typename...>
 	class gl_function;
 
-	struct no_init_t{
-		struct no_init_arg_t{ constexpr no_init_arg_t(){} };
-		constexpr no_init_t(no_init_arg_t){}
+	struct deferred_init_t{
+		struct deferred_init_arg_t{ constexpr deferred_init_arg_t(){} };
+		constexpr deferred_init_t(deferred_init_arg_t){}
 	};
 
-	static no_init_t no_init{no_init_t::no_init_arg_t{}};
+	struct no_test_t{
+		struct no_test_arg_t{ constexpr no_test_arg_t(){} };
+		constexpr no_test_t(no_test_arg_t){}
+	};
+
+	static deferred_init_t deferred_init{deferred_init_t::deferred_init_arg_t{}};
+	static no_test_t no_test{no_test_t::no_test_arg_t{}};
 
 	template<typename Ret, typename ... Args>
 	class gl_function<Ret(Args...)>{
@@ -48,11 +54,27 @@ namespace gapi{
 				init();
 			}
 
-			gl_function(no_init_t, const char *name)
+			~gl_function(){ delete fn; }
+
+			gl_function(no_test_t, const char *name)
+				: fn_name{name}{
+				init(no_test);
+			}
+
+			gl_function(deferred_init_t, const char *name)
 				: fn_name{name}{}
 
 			Ret operator()(Args ... args){
-				return fptr(args...);
+				return (*fn)(args...);
+			}
+
+			void init(no_test_t){
+				fptr = reinterpret_cast<Ret(*)(Args...)>(detail::get_gl_fp(fn_name.c_str()));
+				if(!fptr)
+					throw gapi_error{"could not get function pointer for "s + fn_name};
+			
+				delete fn;
+				fn = new func_ptr{this};
 			}
 
 			void init(){
@@ -66,18 +88,61 @@ namespace gapi{
 					test_args(fn_name.c_str(), k.args);
 				}
 
-				fptr = reinterpret_cast<Ret(*)(Args...)>(detail::get_gl_fp(fn_name.c_str()));
-				if(!fptr)
-					throw gapi_error{"could not get function pointer for "};
+				init(no_test);
+			}
+
+			Ret init_call(Args ... args){
+				init();
+				return (*fn)(args...);
+			}
+
+			Ret init_call(no_test_t, Args ... args){
+				init(no_test);
+				return (*fn)(args...);
 			}
 
 			const std::string &name() const noexcept{ return fn_name; }
 
 		protected:
+			Ret(*fptr)(Args...) = +[](Args ... args) -> Ret{
+				throw gapi_error{"opengl function uninitialized"};
+				return Ret(0);
+			};
+			
 			std::string fn_name;
-			Ret(*fptr)(Args...) = [](Args...) -> Ret{ throw gapi_error{"uninitialized opengl function called"}; };
-			friend class context;
+
+			class func_base{
+				public:
+					func_base(gl_function<Ret(Args...)> *self_)
+						: self{self_}{}
+
+					virtual Ret operator()(Args ... args) = 0;
+
+					gl_function<Ret(Args...)> *self;
+			};
+
+			class func_init: public func_base{
+				public:
+					func_init(gl_function<Ret(Args...)> *self_)
+						: func_base{self_}{}
+
+					Ret operator()(Args ... args){
+						return this->self->init_call(args...);
+					}
+			};
+
+			class func_ptr: public func_base{
+				public:
+					func_ptr(gl_function<Ret(Args...)> *self_)
+						: func_base{self_}{}
+
+					Ret operator()(Args ... args){
+						return this->self->fptr(args...);
+					}
+			};
+
+			func_base *fn = new func_init{this};
 	};
 }
 
-#endif // GAPI_HPP
+#endif // GAPI_GAPI_HPP
