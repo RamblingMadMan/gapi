@@ -42,6 +42,7 @@ auto main() -> int{
 					bool going = false;
 					fn f;
 					for(auto &&function : library.second.get_child("function")){
+						std::cout << function.first << std::endl;
 						if(function.first == "<xmlattr>"){
 							if(going)
 								funcs.push_back(f);
@@ -53,12 +54,11 @@ auto main() -> int{
 						}
 						else if(function.first == "param"){
 							auto name = function.second.get<std::string>("<xmlattr>.name");
-							if(name == "void")
-								continue;
-							f.args.emplace_back(
-								name,
-								function.second.get<std::string>("<xmlattr>.type")
-							);
+							if(name != "void")
+								f.args.emplace_back(
+									name,
+									function.second.get<std::string>("<xmlattr>.type")
+								);
 						}
 					}
 					funcs.push_back(f);
@@ -161,7 +161,7 @@ auto main() -> int{
 				"namespace gapi{\n" // start of namespace
 				"\tnamespace functions{\n";
 				for(auto &&func : funcs){
-		out	<<	"\t\tgl_function<" << func.ret << '(';
+		out	<<	"\t\tinline gl_function<" << func.ret << '(';
 					for(std::size_t i = 0; i < func.args.size(); i++){
 		out	<<	func.args[i].second;
 						if(i < (func.args.size()-1))
