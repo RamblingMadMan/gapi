@@ -79,15 +79,17 @@ default: `$(SRC_DIR)/build`
 ##`BUILD_TYPE`
 The type of build to be made
 
+default: `debug`
+
 ##`OPTFLAGS_DEBUG`
 Compiler flags for debug builds
 
-default: `-O2 -g`
+default: `-Og -ggdb`
 
 ##`OPTFLAGS_RELEASE`
 Compiler flags for release builds
 
-default: `-O3 -ffast-math -fexpensive-optimizations`
+default: `-Ofast -fexpensive-optimizations -DNDEBUG`
 
 ##`CXXFLAGS`
 Generic compiler flags

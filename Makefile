@@ -9,7 +9,7 @@ CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
 LDFLAGS?=-rpath $(DESTDIR)/lib -version-info 1:0:1
 LIBS?=
 
-OPTFLAGS_DEBUG?=-O2 -g
+OPTFLAGS_DEBUG?=-Og -ggdb
 OPTFLAGS_RELEASE?=-Ofast -fexpensive-optimizations -DNDEBUG
 
 BUILD_TYPE?=debug
