@@ -29,7 +29,7 @@ auto main() -> int{
 }
 ```
 
-To use any of the constants defined in the OpenGL API such as GL_COLOR_BUFFER_BIT, you should include `gapi/constants.hpp`.
+To use any of the constants defined in the OpenGL API such as `GL_COLOR_BUFFER_BIT`, you should include `gapi/constants.hpp`.
 
 or if you want to retrieve the function pointer directly, it can be retrieved like so:
 
