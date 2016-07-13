@@ -70,10 +70,11 @@ To build simply run `make` from the root source directory.
 The library will be built into BUILD_DIR, then within that directory either debug or release.
 
 possible flags that can be set at build time are
+
 ##`BUILD_DIR`
 The directory that the library will be built into
 
-default: SRC_DIR/build
+default: `$(SRC_DIR)/build`
 
 ##`BUILD_TYPE`
 The type of build to be made
@@ -81,29 +82,29 @@ The type of build to be made
 ##`OPTFLAGS_DEBUG`
 Compiler flags for debug builds
 
-default: -O2 -g
+default: `-O2 -g`
 
 ##`OPTFLAGS_RELEASE`
 Compiler flags for release builds
 
-default: -O3 -ffast-math -fexpensive-optimizations
+default: `-O3 -ffast-math -fexpensive-optimizations`
 
 ##`CXXFLAGS`
 Generic compiler flags
 
 NOTE these flags should rarely be set
 
-default: -std=c++1z -msse3
+default: `-std=c++1z -msse3`
 
 ##`LDFLAGS`
 libtool linker flags
 
-default: -rpath DESTDIR
+default: `-rpath $(DESTDIR)`
 
 ##`LIBS`
 Libraries to be passed to the linker
 
-default: [EMPTY]
+default: `[EMPTY]`
 
 Installation
 ============
