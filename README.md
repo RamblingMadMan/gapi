@@ -116,4 +116,4 @@ To install run the following in the source dir:
 make install
 ```
 
-If you don't specify DESTDIR to something custom then you will need to run `make install` with superuser privilages.
+If you don't specify `DESTDIR` to something custom then you will need to run `make install` with superuser privilages.
