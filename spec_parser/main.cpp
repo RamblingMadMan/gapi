@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <stdexcept>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -8,71 +9,93 @@
 #include <chrono>
 #include <mutex>
 
-#include <boost/property_tree/xml_parser.hpp>
+#include <rapidxml/rapidxml.hpp>
+#include <rapidxml/rapidxml_utils.hpp>
 
 auto main() -> int{
-	namespace pt = boost::property_tree;
-
 	using Clock = std::chrono::high_resolution_clock;
 	using std::chrono::nanoseconds;
 	using std::chrono::duration_cast;
-
-	std::ifstream file{"gl.xml"};
-
-	pt::ptree tree;
-	pt::read_xml(file, tree);
-
+	
 	struct fn{
 		std::string name;
 		std::string brief;
 		std::string ret;
 		std::vector<std::pair<std::string, std::string>> args;
 	};
-
+	
 	std::vector<fn> funcs;
 	std::vector<std::pair<std::string, std::string>> consts;
 
-	for(auto &&root : tree.get_child("module")){
-		if(root.first == "libraries")
-			for(auto &&library : root.second.get_child("library")){
-				if(library.first == "functions"){
-					auto brief = library.second.get<std::string>("documentation");
-
-					std::vector<fn> fns;
-					bool going = false;
+	rapidxml::file<> xmlFile{"gl.xml"};
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(xmlFile.data());
+	
+	using xml_node = rapidxml::xml_node<>;
+	
+	xml_node *proot = doc.first_node(); // <module>
+	if(!proot)
+		throw std::runtime_error{"no root <module> in gl.xml"};
+	
+	for(xml_node *pnode = proot->first_node("libraries"); pnode; pnode = pnode->next_sibling()){
+		for(xml_node *plib = pnode->first_node("library"); plib; plib = plib->next_sibling()){
+			for(xml_node *pfuncs = plib->first_node("functions"); pfuncs; pfuncs = pfuncs->next_sibling()){
+				std::string brief;
+				
+				xml_node *pdoc = pfuncs->first_node("documentation");
+				if(pdoc){
+					brief = pdoc->value();
+				}
+				
+				for(xml_node *pfunc = pfuncs->first_node("function"); pfunc; pfunc = pfunc->next_sibling()){
 					fn f;
-					for(auto &&function : library.second.get_child("function")){
-						std::cout << function.first << std::endl;
-						if(function.first == "<xmlattr>"){
-							if(going)
-								funcs.push_back(f);
-							else going = true;
-
-							f.name = function.second.get<std::string>("name");
-							f.ret = function.second.get<std::string>("type");
-							f.brief = brief;
-						}
-						else if(function.first == "param"){
-							auto name = function.second.get<std::string>("<xmlattr>.name");
-							if(name != "void")
-								f.args.emplace_back(
-									name,
-									function.second.get<std::string>("<xmlattr>.type")
-								);
-						}
+					auto name = pfunc->first_attribute("name");
+					if(!name)
+						throw std::runtime_error{"function without a name in gl.xml"};
+					
+					f.name = name->value();
+					
+					auto type = pfunc->first_attribute("type");
+					if(!type)
+						throw std::runtime_error{"function without a return type in gl.xml"};
+					
+					f.ret = type->value();
+					
+					for(xml_node *pparam = pfunc->first_node("param"); pparam; pparam = pparam->next_sibling()){
+						auto nameattr = pparam->first_attribute("name");
+						if(!nameattr)
+							throw std::runtime_error{"function parameter without a name"};
+						
+						std::string name = nameattr->value();
+						
+						if(name == "void")
+							break;
+						
+						auto typeattr = pparam->first_attribute("type");
+						if(!typeattr)
+							throw std::runtime_error{"function parameter without a type"};
+						
+						std::string type = typeattr->value();
+						
+						f.args.emplace_back(std::move(name), std::move(type));
 					}
-					funcs.push_back(f);
+					
+					funcs.emplace_back(std::move(f));
 				}
 			}
-		else if(root.first == "consts"){
-			for(auto &&const_ : root.second.get_child("const")){
-				std::cout << const_.first << std::endl;
-				if(const_.first == "<xmlattr>"){
-					auto name = const_.second.get<std::string>("name");
-					auto value = const_.second.get<std::string>("value");
-					consts.emplace_back(std::move(name), std::move(value));
-				}
-			}
+		}
+	}
+	for(xml_node *pnode = proot->first_node("consts"); pnode; pnode = pnode->next_sibling()){
+		for(xml_node *pconst = pnode->first_node("const"); pconst; pconst = pconst->next_sibling()){
+			auto attrname = pconst->first_attribute("name");
+			auto attrvalue = pconst->first_attribute("value");
+			
+			if(!attrname)
+				throw std::runtime_error{"constant without name in gl.xml"};
+			else if(!attrvalue)
+				throw std::runtime_error{"constant without value in gl.xml"};
+			
+			consts.emplace_back(attrname->value(), attrvalue->value());
 		}
 	}
 
@@ -128,25 +151,21 @@ auto main() -> int{
 				"#endif // GAPI_KNOWN_HPP\n"; // end of file
 	}
 	{
-		std::ofstream out{"basic_types.hpp"};
+		std::ofstream out{"constants.hpp"};
 		if(!out){
-			std::cerr << "could not create/open output file basic_types.hpp\n";
+			std::cerr << "could not create/open output file constants.hpp\n";
 			std::exit(EXIT_FAILURE);
 		}
 
-		out <<	"#ifndef GAPI_BASIC_TYPES_HPP\n"
-				"#define GAPI_BASIC_TYPES_HPP 1\n"
+		out <<	"#ifndef GAPI_CONSTANTS_HPP\n"
+				"#define GAPI_CONSTANTS_HPP 1\n"
 				"\n"
-				"#include <cstdint>\n"
-				"\n"
-				"namespace gapi{\n" // start namespace
-				"\tenum class GLenum{\n";
+				"namespace gapi{\n"; // start namespace
 				for(auto &&c : consts)
-		out	<<	"\t\t" << c.first << " = " << c.second << ",\n";
-		out	<<	"\t};\n"
-				"}\n" // end namespace
+		out	<<	"\tconstexpr auto " << c.first << " = " << c.second << ";\n";
+		out	<<	"}\n" // end namespace
 				"\n"
-				"#endif // GAPI_BASIC_TYPES_HPP\n";
+				"#endif // GAPI_CONSTANTS_HPP\n";
 	}
 	{
 		std::ofstream out{"functions.hpp"};
