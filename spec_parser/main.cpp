@@ -161,8 +161,15 @@ auto main() -> int{
 				"#define GAPI_CONSTANTS_HPP 1\n"
 				"\n"
 				"namespace gapi{\n"; // start namespace
-				for(auto &&c : consts)
+				std::vector<std::string> done_consts;
+				for(auto &&c : consts){
+					bool break_ = false;
+					for(auto &&d : done_consts)
+						if(c.first == d) break_ = true;
+					if(break_) break;
 		out	<<	"\tconstexpr auto " << c.first << " = " << c.second << ";\n";
+					done_consts.push_back(c);
+				}
 		out	<<	"}\n" // end namespace
 				"\n"
 				"#endif // GAPI_CONSTANTS_HPP\n";
