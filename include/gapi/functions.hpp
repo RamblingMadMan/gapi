@@ -433,6 +433,4 @@ namespace gapi{
 	}
 }
 
-#undef FUNC
-
 #endif // GAPI_FUNCTIONS_HPP

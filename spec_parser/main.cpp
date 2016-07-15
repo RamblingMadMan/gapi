@@ -168,7 +168,7 @@ auto main() -> int{
 						if(c.first == d) break_ = true;
 					if(break_) break;
 		out	<<	"\tconstexpr auto " << c.first << " = " << c.second << ";\n";
-					done_consts.push_back(c);
+					done_consts.push_back(c.first);
 				}
 		out	<<	"}\n" // end namespace
 				"\n"
