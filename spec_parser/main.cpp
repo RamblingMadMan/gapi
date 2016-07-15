@@ -191,8 +191,6 @@ auto main() -> int{
 		out	<<	"\t}\n" // end of functions namespace
 				"}\n" // end of gapi namespace
 				"\n"
-				"#undef FUNC\n"
-				"\n"
 				"#endif // GAPI_FUNCTIONS_HPP\n";
 	}
 }
