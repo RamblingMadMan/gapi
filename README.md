@@ -79,7 +79,7 @@ The directory the library will be installed to upon `make install`
 
 The name of `DESTDIR` is chosen for easier packaging with snapcraft
 
-default: `/usr/local/lib`
+default: `/usr/local`
 
 ##`BUILD_DIR`
 The directory that the library will be built into

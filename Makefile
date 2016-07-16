@@ -2,7 +2,7 @@ PWD:=$(shell pwd)
 SRC_DIR:=$(PWD)
 BUILD_DIR?=$(PWD)/build
 
-DESTDIR?=/usr/local/
+DESTDIR?=/usr/local
 
 CXX:=g++-6
 CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
