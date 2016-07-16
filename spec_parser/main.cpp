@@ -143,7 +143,7 @@ auto main() -> int{
 
 		out <<	"\t\t\t}\n" // end of constructor
 				"\n"
-				"\t\t\tconst char *ret;\n"
+				"\t\t\tconst char *ret = nullptr;\n"
 				"\t\t\tstd::vector<std::pair<std::string, const char*>> args;\n"
 				"\t};\n" // end of class
 				"}\n" // end of namespace

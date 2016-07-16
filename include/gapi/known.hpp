@@ -2646,7 +2646,7 @@ namespace gapi{
 				}
 			}
 
-			const char *ret;
+			const char *ret = nullptr;
 			std::vector<std::pair<std::string, const char*>> args;
 	};
 }
