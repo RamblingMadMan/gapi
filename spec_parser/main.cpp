@@ -119,19 +119,14 @@ auto main() -> int{
 				"\n"
 				"namespace gapi{\n"
 				"\tclass known{\n"
-				"\t\tprivate:\n"
-				"\t\t\tauto safe_compare(const char *usr, const char *cst){\n"
-				"\t\t\t\treturn std::strncmp(usr, cst, std::strlen(cst)) == 0;\n"
-				"\t\t\t}\n"
-				"\n"
 				"\t\tpublic:\n"
-				"\t\t\tknown(const char *fn){\n"; // start of constructor
+				"\t\t\tknown(const std::string &fn){\n"; // start of constructor
 				
 				for(std::size_t i = 0; i < funcs.size(); i++){
 					if(i == 0)
-		out <<	"\t\t\t\tif(safe_compare(fn, \"" << funcs[i].name << "\")){\n";
+		out <<	"\t\t\t\tif(fn == \"" << funcs[i].name << "\"){\n";
 					else
-		out <<	"\t\t\t\telse if(safe_compare(fn, \"" << funcs[i].name << "\")){\n";
+		out <<	"\t\t\t\telse if(fn == \"" << funcs[i].name << "\"){\n";
 
 		out <<	"\t\t\t\t\tret = typeid(" << funcs[i].ret << ").name();\n";
 
