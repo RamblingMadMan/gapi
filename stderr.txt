@@ -1,0 +1,2 @@
+make[1]: *** [/home/keith/Development/gapi/build/debug/objs/functions.lo] Error 1
+make: *** [src] Interrupt

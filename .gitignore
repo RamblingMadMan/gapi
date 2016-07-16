@@ -3,6 +3,7 @@ build
 */uninstall.sh
 spec_parser/known.hpp
 spec_parser/functions.hpp
+spec_parser/functions.cpp
 spec_parser/basic_types.hpp
 spec_parser/constants.hpp
 spec_parser/spec_parser*

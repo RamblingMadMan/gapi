@@ -708,7 +708,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
       <functions>
         <documentation>glDepthRangeIndexed - specify mapping of depth values from normalized device coordinates to window coordinates for a specified viewport
 </documentation>
-        <function name="glDepthRangeArrayv" type="void">
+        <function name="glDepthRangeIndexed" type="void">
           <param name="index" type="GLuint"/>
           <param name="nearVal" type="GLclampd"/>
           <param name="farVal" type="GLclampd"/>
@@ -2831,9 +2831,9 @@ https://github.com/AlexandreFournier/gl-spec-parser
         </function>
         <function name="glVertexAttribI3ui" type="void">
           <param name="index" type="GLuint"/>
-          <param name="v0" type="GLoint"/>
-          <param name="v1" type="GLoint"/>
-          <param name="v2" type="GLoint"/>
+          <param name="v0" type="GLuint"/>
+          <param name="v1" type="GLuint"/>
+          <param name="v2" type="GLuint"/>
         </function>
         <function name="glVertexAttrib4f" type="void">
           <param name="index" type="GLuint"/>

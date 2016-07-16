@@ -115,7 +115,7 @@ auto main() -> int{
 				"#include <utility>\n"
 				"#include <typeinfo>\n"
 				"\n"
-				"#include \"basic_types.hpp\"\n"
+				"#include \"types.hpp\"\n"
 				"\n"
 				"namespace gapi{\n"
 				"\tclass known{\n"
@@ -184,20 +184,48 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
+				"#include \"types.hpp\""
+				"\n"
 				"namespace gapi{\n" // start of namespace
 				"\tnamespace functions{\n";
 				for(auto &&func : funcs){
-		out	<<	"\t\tinline gl_function<" << func.ret << '(';
+		out	<<	"\t\textern gl_function<" << func.ret << '(';
 					for(std::size_t i = 0; i < func.args.size(); i++){
 		out	<<	func.args[i].second;
 						if(i < (func.args.size()-1))
 							out << ", ";
 					}
-		out	<<	")> " << func.name << "{deferred_init, \"" << func.name << "\"};\n";
+		out	<<	")> " << func.name << ";\n";
 				}
 		out	<<	"\t}\n" // end of functions namespace
 				"}\n" // end of gapi namespace
 				"\n"
 				"#endif // GAPI_FUNCTIONS_HPP\n";
+	}
+	{
+		std::ofstream out{"functions.cpp"};
+		if(!out){
+			std::cerr << "could not create/open output file functions.cpp\n";
+			std::exit(EXIT_FAILURE);
+		}
+		
+		out <<	"#include \"gapi/gapi.hpp\"\n"
+				"#include \"gapi/types.hpp\"\n"
+				"\n"
+				"namespace gapi{\n"
+				"\tnamespace functions{\n";
+		
+		for(auto &&func : funcs){
+			out	<<	"\t\tgl_function<" << func.ret << '(';
+			for(std::size_t i = 0; i < func.args.size(); i++){
+				out	<<	func.args[i].second;
+				if(i < (func.args.size()-1))
+					out << ", ";
+			}
+			out	<<	")> " << func.name << "{deferred_init, \"" << func.name << "\"};\n";
+		}
+		
+		out <<	"\t}\n" // end functions namespace
+				"}\n"; // end gapi namespace
 	}
 }

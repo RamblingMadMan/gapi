@@ -1,6 +1,6 @@
 OUT:=$(BUILD_DIR)/libgapi.la
 
-SOURCES:=context.cpp
+SOURCES:=context.cpp functions.cpp
 OBJECTS:=$(addprefix $(BUILD_DIR)/objs/,$(SOURCES:.cpp=.lo))
 
 CXXFLAGS:=$(shell pkg-config gl --cflags) $(CXXFLAGS)

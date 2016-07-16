@@ -1,0 +1,6 @@
+make -C src
+make[1]: Entering directory '/home/keith/Development/gapi/src'
+libtool --mode=compile --tag=CXX g++-6 -fPIC -I/usr/include/libdrm -std=c++1z -fconcepts -msse3 -I/home/keith/Development/gapi/include -Og -ggdb -c functions.cpp -o /home/keith/Development/gapi/build/debug/objs/functions.lo
+libtool: compile:  g++-6 -fPIC -I/usr/include/libdrm -std=c++1z -fconcepts -msse3 -I/home/keith/Development/gapi/include -Og -ggdb -c functions.cpp  -fPIC -DPIC -o /home/keith/Development/gapi/build/debug/objs/.libs/functions.o
+Makefile:24: recipe for target '/home/keith/Development/gapi/build/debug/objs/functions.lo' failed
+Makefile:42: recipe for target 'src' failed

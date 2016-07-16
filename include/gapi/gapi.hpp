@@ -37,10 +37,10 @@ namespace gapi{
 
 			template<std::size_t ... Indices, typename T>
 			void test_args_impl(std::index_sequence<Indices...>, const std::string &name, T &&vec){
-				([&](auto idx, auto type){
-					if(std::string(vec[idx].second) != typeid(typename decltype(type)::type).name())
-						throw gapi_error{"argument "s + std::to_string(idx) + " for " + name + " not of expected type " + boost::core::demangle(vec[idx].second)};
-				}(Indices, type_tag<Args>{}), ...);
+				([this](auto &&vec, auto idx, auto type){
+					if(std::string(vec[idx].second) != type)
+						throw gapi_error("argument "s + std::to_string(idx) + " for " + this->fn_name + " not of expected type " + boost::core::demangle(vec[idx].second));
+				}(std::forward<T>(vec), Indices, typeid(Args).name()), ...);
 			}
 
 			template<typename T>
@@ -81,9 +81,9 @@ namespace gapi{
 				known k{fn_name.c_str()};
 				if(k.ret){
 					if(std::string(k.ret) != typeid(Ret).name())
-						throw gapi_error{"return type doesn't match known return type for "s + name};
+						throw gapi_error{"return type doesn't match known return type for "s + fn_name};
 					else if(sizeof...(Args) != k.args.size())
-						throw gapi_error{"number of arguments doesn't match known number of arguments for "s + name};
+						throw gapi_error{"number of arguments doesn't match known number of arguments for "s + fn_name};
 					
 					test_args(fn_name.c_str(), k.args);
 				}

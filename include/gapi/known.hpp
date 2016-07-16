@@ -7,7 +7,7 @@
 #include <utility>
 #include <typeinfo>
 
-#include "basic_types.hpp"
+#include "types.hpp"
 
 namespace gapi{
 	class known{
