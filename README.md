@@ -73,6 +73,14 @@ The library will be built into BUILD_DIR, then within that directory either debu
 
 possible flags that can be set at build time are
 
+
+##`DESTDIR`
+The directory the library will be installed to upon `make install`
+
+The name of `DESTDIR` is chosen for easier packaging with snapcraft
+
+default: `/usr/local/lib`
+
 ##`BUILD_DIR`
 The directory that the library will be built into
 
