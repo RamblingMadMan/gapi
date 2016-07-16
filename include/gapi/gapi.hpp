@@ -102,6 +102,10 @@ namespace gapi{
 			}
 
 			const std::string &name() const noexcept{ return fn_name; }
+			
+			Ret(*get())(Args...){
+				return fptr;
+			}
 
 		protected:
 			Ret(*fptr)(Args...) = +[](Args ... args) -> Ret{
