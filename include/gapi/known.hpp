@@ -37,10 +37,17 @@ namespace gapi{
 					args.emplace_back("id", typeid(GLuint).name());
 					args.emplace_back("mode", typeid(GLenum).name());
 				}
+				else if(safe_compare(fn, "glEndConditionalRender")){
+					ret = typeid(void).name();
+				}
 				else if(safe_compare(fn, "glBeginQuery")){
 					ret = typeid(void).name();
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("id", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glEndQuery")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
 				}
 				else if(safe_compare(fn, "glBeginQueryIndexed")){
 					ret = typeid(void).name();
@@ -48,9 +55,17 @@ namespace gapi{
 					args.emplace_back("index", typeid(GLuint).name());
 					args.emplace_back("id", typeid(GLuint).name());
 				}
+				else if(safe_compare(fn, "glEndQueryIndexed")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+				}
 				else if(safe_compare(fn, "glBeginTransformFeedback")){
 					ret = typeid(void).name();
 					args.emplace_back("primitiveMode", typeid(GLenum).name());
+				}
+				else if(safe_compare(fn, "glEndTransformFeedback")){
+					ret = typeid(void).name();
 				}
 				else if(safe_compare(fn, "glBindAttribLocation")){
 					ret = typeid(void).name();
@@ -134,8 +149,19 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("mode", typeid(GLenum).name());
 				}
+				else if(safe_compare(fn, "glBlendEquationi")){
+					ret = typeid(void).name();
+					args.emplace_back("buf", typeid(GLuint).name());
+					args.emplace_back("mode", typeid(GLenum).name());
+				}
 				else if(safe_compare(fn, "glBlendEquationSeparate")){
 					ret = typeid(void).name();
+					args.emplace_back("modeRGB", typeid(GLenum).name());
+					args.emplace_back("modeAlpha", typeid(GLenum).name());
+				}
+				else if(safe_compare(fn, "glBlendEquationSeparatei")){
+					ret = typeid(void).name();
+					args.emplace_back("buf", typeid(GLuint).name());
 					args.emplace_back("modeRGB", typeid(GLenum).name());
 					args.emplace_back("modeAlpha", typeid(GLenum).name());
 				}
@@ -144,8 +170,22 @@ namespace gapi{
 					args.emplace_back("sfactor", typeid(GLenum).name());
 					args.emplace_back("dfactor", typeid(GLenum).name());
 				}
+				else if(safe_compare(fn, "glBlendFunci")){
+					ret = typeid(void).name();
+					args.emplace_back("buf", typeid(GLuint).name());
+					args.emplace_back("sfactor", typeid(GLenum).name());
+					args.emplace_back("dfactor", typeid(GLenum).name());
+				}
 				else if(safe_compare(fn, "glBlendFuncSeparate")){
 					ret = typeid(void).name();
+					args.emplace_back("srcRGB", typeid(GLenum).name());
+					args.emplace_back("dstRGB", typeid(GLenum).name());
+					args.emplace_back("srcAlpha", typeid(GLenum).name());
+					args.emplace_back("dstAlpha", typeid(GLenum).name());
+				}
+				else if(safe_compare(fn, "glBlendFuncSeparatei")){
+					ret = typeid(void).name();
+					args.emplace_back("buf", typeid(GLuint).name());
 					args.emplace_back("srcRGB", typeid(GLenum).name());
 					args.emplace_back("dstRGB", typeid(GLenum).name());
 					args.emplace_back("srcAlpha", typeid(GLenum).name());
@@ -197,6 +237,25 @@ namespace gapi{
 					args.emplace_back("drawBuffer", typeid(GLint).name());
 					args.emplace_back("value", typeid(GLint *).name());
 				}
+				else if(safe_compare(fn, "glClearBufferuiv")){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLenum).name());
+					args.emplace_back("drawBuffer", typeid(GLint).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glClearBufferfv")){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLenum).name());
+					args.emplace_back("drawBuffer", typeid(GLint).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glClearBufferfi")){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLenum).name());
+					args.emplace_back("drawBuffer", typeid(GLint).name());
+					args.emplace_back("depth", typeid(GLfloat).name());
+					args.emplace_back("stencil", typeid(GLint).name());
+				}
 				else if(safe_compare(fn, "glClearColor")){
 					ret = typeid(void).name();
 					args.emplace_back("red", typeid(GLclampf).name());
@@ -207,6 +266,10 @@ namespace gapi{
 				else if(safe_compare(fn, "glClearDepth")){
 					ret = typeid(void).name();
 					args.emplace_back("depth", typeid(GLclampd).name());
+				}
+				else if(safe_compare(fn, "glClearDepthf")){
+					ret = typeid(void).name();
+					args.emplace_back("depth", typeid(GLclampf).name());
 				}
 				else if(safe_compare(fn, "glClearStencil")){
 					ret = typeid(void).name();
@@ -446,13 +509,18 @@ namespace gapi{
 					args.emplace_back("nearVal", typeid(GLclampd).name());
 					args.emplace_back("farVal", typeid(GLclampd).name());
 				}
+				else if(safe_compare(fn, "glDepthRangef")){
+					ret = typeid(void).name();
+					args.emplace_back("nearVal", typeid(GLclampf).name());
+					args.emplace_back("farVal", typeid(GLclampf).name());
+				}
 				else if(safe_compare(fn, "glDepthRangeArrayv")){
 					ret = typeid(void).name();
 					args.emplace_back("first", typeid(GLuint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("v", typeid(GLclampd *).name());
 				}
-				else if(safe_compare(fn, "glDepthRangeArrayv")){
+				else if(safe_compare(fn, "glDepthRangeIndexed")){
 					ret = typeid(void).name();
 					args.emplace_back("index", typeid(GLuint).name());
 					args.emplace_back("nearVal", typeid(GLclampd).name());
@@ -562,7 +630,25 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("cap", typeid(GLenum).name());
 				}
+				else if(safe_compare(fn, "glDisable")){
+					ret = typeid(void).name();
+					args.emplace_back("cap", typeid(GLenum).name());
+				}
+				else if(safe_compare(fn, "glEnablei")){
+					ret = typeid(void).name();
+					args.emplace_back("cap", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glDisablei")){
+					ret = typeid(void).name();
+					args.emplace_back("cap", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+				}
 				else if(safe_compare(fn, "glEnableVertexAttribArray")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glDisableVertexAttribArray")){
 					ret = typeid(void).name();
 					args.emplace_back("index", typeid(GLuint).name());
 				}
@@ -596,6 +682,31 @@ namespace gapi{
 					args.emplace_back("attachment", typeid(GLenum).name());
 					args.emplace_back("texture", typeid(GLuint).name());
 					args.emplace_back("level", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glFramebufferTexture1D")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("attachment", typeid(GLenum).name());
+					args.emplace_back("textarget", typeid(GLenum).name());
+					args.emplace_back("texture", typeid(GLuint).name());
+					args.emplace_back("level", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glFramebufferTexture2D")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("attachment", typeid(GLenum).name());
+					args.emplace_back("textarget", typeid(GLenum).name());
+					args.emplace_back("texture", typeid(GLuint).name());
+					args.emplace_back("level", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glFramebufferTexture3D")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("attachment", typeid(GLenum).name());
+					args.emplace_back("textarget", typeid(GLenum).name());
+					args.emplace_back("texture", typeid(GLuint).name());
+					args.emplace_back("level", typeid(GLint).name());
+					args.emplace_back("layer", typeid(GLint).name());
 				}
 				else if(safe_compare(fn, "glFramebufferTextureLayer")){
 					ret = typeid(void).name();
@@ -662,6 +773,44 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("params", typeid(GLboolean *).name());
+				}
+				else if(safe_compare(fn, "glGetDoublev")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glGetFloatv")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glGetIntegerv")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glGetInteger64v")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint64 *).name());
+				}
+				else if(safe_compare(fn, "glGetBooleani_v")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("data", typeid(GLboolean *).name());
+				}
+				else if(safe_compare(fn, "glGetIntegeri_v")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("data", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glGetInteger64i_v")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("data", typeid(GLint64 *).name());
 				}
 				else if(safe_compare(fn, "glGetActiveAttrib")){
 					ret = typeid(void).name();
@@ -857,6 +1006,24 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("params", typeid(GLint *).name());
 				}
+				else if(safe_compare(fn, "glGetQueryObjectuiv")){
+					ret = typeid(void).name();
+					args.emplace_back("id", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glGetQueryObjecti64v")){
+					ret = typeid(void).name();
+					args.emplace_back("id", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint64 *).name());
+				}
+				else if(safe_compare(fn, "glGetQueryObjectui64v")){
+					ret = typeid(void).name();
+					args.emplace_back("id", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLuint64 *).name());
+				}
 				else if(safe_compare(fn, "glGetQueryiv")){
 					ret = typeid(void).name();
 					args.emplace_back("target", typeid(GLenum).name());
@@ -874,6 +1041,12 @@ namespace gapi{
 					args.emplace_back("sampler", typeid(GLuint).name());
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glGetSamplerParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("sampler", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
 				}
 				else if(safe_compare(fn, "glGetShaderiv")){
 					ret = typeid(void).name();
@@ -905,6 +1078,11 @@ namespace gapi{
 				else if(safe_compare(fn, "glGetString")){
 					ret = typeid(GLubyte*).name();
 					args.emplace_back("name", typeid(GLenum).name());
+				}
+				else if(safe_compare(fn, "glGetStringi")){
+					ret = typeid(GLubyte*).name();
+					args.emplace_back("name", typeid(GLenum).name());
+					args.emplace_back("index", typeid(GLuint).name());
 				}
 				else if(safe_compare(fn, "glGetSubroutineIndex")){
 					ret = typeid(GLuint).name();
@@ -941,11 +1119,24 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("params", typeid(GLfloat *).name());
 				}
+				else if(safe_compare(fn, "glGetTexLevelParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("level", typeid(GLint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
 				else if(safe_compare(fn, "glGetTexParameterfv")){
 					ret = typeid(void).name();
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glGetTexParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
 				}
 				else if(safe_compare(fn, "glGetTransformFeedbackVarying")){
 					ret = typeid(void).name();
@@ -962,6 +1153,12 @@ namespace gapi{
 					args.emplace_back("program", typeid(GLuint).name());
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glGetUniformiv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("params", typeid(GLint *).name());
 				}
 				else if(safe_compare(fn, "glGetUniformBlockIndex")){
 					ret = typeid(GLuint).name();
@@ -987,6 +1184,36 @@ namespace gapi{
 					args.emplace_back("values", typeid(GLuint *).name());
 				}
 				else if(safe_compare(fn, "glGetVertexAttribdv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glGetVertexAttribfv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glGetVertexAttribiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glGetVertexAttribIiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glGetVertexAttribIuiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glGetVertexAttribLdv")){
 					ret = typeid(void).name();
 					args.emplace_back("index", typeid(GLuint).name());
 					args.emplace_back("pname", typeid(GLenum).name());
@@ -1072,6 +1299,10 @@ namespace gapi{
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("access", typeid(GLenum).name());
 				}
+				else if(safe_compare(fn, "glUnmapBuffer")){
+					ret = typeid(GLboolean).name();
+					args.emplace_back("target", typeid(GLenum).name());
+				}
 				else if(safe_compare(fn, "glMapBufferRange")){
 					ret = typeid(void *).name();
 					args.emplace_back("target", typeid(GLenum).name());
@@ -1112,6 +1343,11 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("value", typeid(GLint).name());
 				}
+				else if(safe_compare(fn, "glPatchParameterfv")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("values", typeid(GLfloat *).name());
+				}
 				else if(safe_compare(fn, "glPauseTransformFeedback")){
 					ret = typeid(void).name();
 				}
@@ -1120,10 +1356,30 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("param", typeid(GLfloat).name());
 				}
+				else if(safe_compare(fn, "glPixelStorei")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("param", typeid(GLint).name());
+				}
 				else if(safe_compare(fn, "glPointParameterf")){
 					ret = typeid(void).name();
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("param", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glPointParameteri")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("param", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glPointParameterfv")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glPointParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
 				}
 				else if(safe_compare(fn, "glPointSize")){
 					ret = typeid(void).name();
@@ -1161,6 +1417,246 @@ namespace gapi{
 					args.emplace_back("program", typeid(GLuint).name());
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("v0", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2f")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3f")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4f")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+					args.emplace_back("v3", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform1i")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2i")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3i")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4i")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+					args.emplace_back("v3", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform1ui")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2ui")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3ui")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4ui")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+					args.emplace_back("v3", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform1fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform1iv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2iv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3iv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4iv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform1uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform2uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform3uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniform4uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix2x3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix3x2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix2x4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix4x2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix3x4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glProgramUniformMatrix4x3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("program", typeid(GLuint).name());
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
 				}
 				else if(safe_compare(fn, "glProvokingVertex")){
 					ret = typeid(void).name();
@@ -1222,6 +1718,24 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("param", typeid(GLfloat).name());
 				}
+				else if(safe_compare(fn, "glSamplerParameteri")){
+					ret = typeid(void).name();
+					args.emplace_back("sampler", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("param", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glSamplerParameterfv")){
+					ret = typeid(void).name();
+					args.emplace_back("sampler", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glSamplerParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("sampler", typeid(GLuint).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
 				else if(safe_compare(fn, "glScissor")){
 					ret = typeid(void).name();
 					args.emplace_back("x", typeid(GLint).name());
@@ -1242,6 +1756,11 @@ namespace gapi{
 					args.emplace_back("bottom", typeid(GLint).name());
 					args.emplace_back("width", typeid(GLsizei).name());
 					args.emplace_back("height", typeid(GLsizei).name());
+				}
+				else if(safe_compare(fn, "glScissorIndexedv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
 				}
 				else if(safe_compare(fn, "glShaderBinary")){
 					ret = typeid(void).name();
@@ -1360,6 +1879,36 @@ namespace gapi{
 					args.emplace_back("pname", typeid(GLenum).name());
 					args.emplace_back("param", typeid(GLfloat).name());
 				}
+				else if(safe_compare(fn, "glTexParameteri")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("param", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glTexParameterfv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glTexParameteriv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glTexParameterIiv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glTexParameterIuiv")){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("pname", typeid(GLenum).name());
+					args.emplace_back("params", typeid(GLuint *).name());
+				}
 				else if(safe_compare(fn, "glTexSubImage1D")){
 					ret = typeid(void).name();
 					args.emplace_back("target", typeid(GLenum).name());
@@ -1408,6 +1957,214 @@ namespace gapi{
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("v0", typeid(GLfloat).name());
 				}
+				else if(safe_compare(fn, "glUniform2f")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glUniform3f")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glUniform4f")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+					args.emplace_back("v3", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glUniform1i")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glUniform2i")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glUniform3i")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glUniform4i")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+					args.emplace_back("v3", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glUniform1ui")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glUniform2ui")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glUniform3ui")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glUniform4ui")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+					args.emplace_back("v3", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glUniform1fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniform2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniform3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniform4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniform1iv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glUniform2iv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glUniform3iv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glUniform4iv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glUniform1uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glUniform2uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glUniform3uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glUniform4uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("value", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix2x3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix3x2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix2x4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix4x2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix3x4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glUniformMatrix4x3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("location", typeid(GLint).name());
+					args.emplace_back("count", typeid(GLsizei).name());
+					args.emplace_back("transpose", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLfloat *).name());
+				}
 				else if(safe_compare(fn, "glUniformBlockBinding")){
 					ret = typeid(void).name();
 					args.emplace_back("program", typeid(GLuint).name());
@@ -1443,6 +2200,388 @@ namespace gapi{
 					args.emplace_back("index", typeid(GLuint).name());
 					args.emplace_back("v0", typeid(GLfloat).name());
 				}
+				else if(safe_compare(fn, "glVertexAttrib1s")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLshort).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib1d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI1i")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI1ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2f")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2s")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLshort).name());
+					args.emplace_back("v1", typeid(GLshort).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI2i")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI2ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+					args.emplace_back("v1", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3f")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3s")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLshort).name());
+					args.emplace_back("v1", typeid(GLshort).name());
+					args.emplace_back("v2", typeid(GLshort).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+					args.emplace_back("v2", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI3i")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI3ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+					args.emplace_back("v1", typeid(GLuint).name());
+					args.emplace_back("v2", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4f")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLfloat).name());
+					args.emplace_back("v1", typeid(GLfloat).name());
+					args.emplace_back("v2", typeid(GLfloat).name());
+					args.emplace_back("v3", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4s")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLshort).name());
+					args.emplace_back("v1", typeid(GLshort).name());
+					args.emplace_back("v2", typeid(GLshort).name());
+					args.emplace_back("v3", typeid(GLshort).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+					args.emplace_back("v2", typeid(GLdouble).name());
+					args.emplace_back("v3", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nub")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLubyte).name());
+					args.emplace_back("v1", typeid(GLubyte).name());
+					args.emplace_back("v2", typeid(GLubyte).name());
+					args.emplace_back("v3", typeid(GLubyte).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4i")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLint).name());
+					args.emplace_back("v1", typeid(GLint).name());
+					args.emplace_back("v2", typeid(GLint).name());
+					args.emplace_back("v3", typeid(GLint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLuint).name());
+					args.emplace_back("v1", typeid(GLuint).name());
+					args.emplace_back("v2", typeid(GLuint).name());
+					args.emplace_back("v3", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL1d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL2d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL3d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+					args.emplace_back("v2", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL4d")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v0", typeid(GLdouble).name());
+					args.emplace_back("v1", typeid(GLdouble).name());
+					args.emplace_back("v2", typeid(GLdouble).name());
+					args.emplace_back("v3", typeid(GLdouble).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib1fv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib1sv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib1dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI1iv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI1uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2fv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2sv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib2dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI2iv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI2uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3fv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3sv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib3dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI3iv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI3uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4fv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLfloat *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4sv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4iv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4bv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLbyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4ubv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLubyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4usv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLushort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nbv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLbyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nsv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Niv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nubv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLubyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nusv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLushort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttrib4Nuiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4bv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLbyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4ubv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLubyte *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4sv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLshort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4usv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLushort *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4iv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribI4uiv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLuint *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL1dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL2dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL3dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribL4dv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLdouble *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribP1ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribP2ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribP3ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLuint).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribP4ui")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("value", typeid(GLuint).name());
+				}
 				else if(safe_compare(fn, "glVertexAttribDivisor")){
 					ret = typeid(void).name();
 					args.emplace_back("index", typeid(GLuint).name());
@@ -1454,6 +2593,22 @@ namespace gapi{
 					args.emplace_back("size", typeid(GLint).name());
 					args.emplace_back("type", typeid(GLenum).name());
 					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("stride", typeid(GLsizei).name());
+					args.emplace_back("pointer", typeid(GLvoid *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribIPointer")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("size", typeid(GLint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("stride", typeid(GLsizei).name());
+					args.emplace_back("pointer", typeid(GLvoid *).name());
+				}
+				else if(safe_compare(fn, "glVertexAttribLPointer")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("size", typeid(GLint).name());
+					args.emplace_back("type", typeid(GLenum).name());
 					args.emplace_back("stride", typeid(GLsizei).name());
 					args.emplace_back("pointer", typeid(GLvoid *).name());
 				}
@@ -1477,6 +2632,11 @@ namespace gapi{
 					args.emplace_back("y", typeid(GLfloat).name());
 					args.emplace_back("w", typeid(GLfloat).name());
 					args.emplace_back("h", typeid(GLfloat).name());
+				}
+				else if(safe_compare(fn, "glViewportIndexedfv")){
+					ret = typeid(void).name();
+					args.emplace_back("index", typeid(GLuint).name());
+					args.emplace_back("v", typeid(GLfloat *).name());
 				}
 				else if(safe_compare(fn, "glWaitSync")){
 					ret = typeid(void).name();
