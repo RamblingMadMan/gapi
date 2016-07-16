@@ -34,8 +34,8 @@ $(DESTDIR)/lib:
 install: all install-dir
 	echo '#!/bin/bash' > uninstall.sh
 	chmod +x uninstall.sh
-	cp -r $(HEADER_FOLDER) $(DESTDIR)/include
-	libtool --mode=install cp $(OUT) $(DESTDIR)/lib/libgapi.la
+	install -d $(HEADER_FOLDER) $(DESTDIR)/include/gapi
+	libtool --mode=install install -c $(OUT) $(DESTDIR)/lib/libgapi.la
 	echo libtool --mode=uninstall rm -f $(DESTDIR)/lib/libgapi.la >> uninstall.sh
 	echo rm -rf $(DESTDIR)/include/glapi >> uninstall.sh
 	libtool --finish $(DESTDIR)/lib
