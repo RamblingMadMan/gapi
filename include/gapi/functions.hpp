@@ -1,7 +1,8 @@
 #ifndef GAPI_FUNCTIONS_HPP
 #define GAPI_FUNCTIONS_HPP 1
 
-#include "gapi.hpp"#include "types.hpp"
+#include "gapi.hpp"
+#include "types.hpp"
 
 namespace gapi{
 	namespace functions{
