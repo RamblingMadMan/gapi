@@ -58,7 +58,7 @@ gapi::gl_function<void()> func{deferred_init, "name"};
 Building
 ========
 
-The build process requires boost-system and a C++ compiler with support for C++17. More specifically, inline variables and fold expressions.
+The build process requires boost-system and a C++ compiler with support for C++17. More specifically, fold expressions.
 
 GCC version 6.x is the best bet and most future proof for future commits, but 5.x should work.
 
