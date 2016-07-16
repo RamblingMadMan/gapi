@@ -184,7 +184,8 @@ auto main() -> int{
 		out	<<	"#ifndef GAPI_FUNCTIONS_HPP\n"
 				"#define GAPI_FUNCTIONS_HPP 1\n"
 				"\n"
-				"#include \"types.hpp\""
+				"#include \"gapi.hpp\""
+				"#include \"types.hpp\"\n"
 				"\n"
 				"namespace gapi{\n" // start of namespace
 				"\tnamespace functions{\n";
