@@ -1,3 +1,7 @@
+#include "gapi/gapi.hpp"
+#include "gapi/texture.hpp"
+#include "gapi/shader.hpp"
+
 #if defined( __linux__ )
 	#if defined( GAPI_EGL )
 	#include <EGL/egl.h>
@@ -16,8 +20,6 @@
 #elif defined( __APPLE__ ) && defined( __MACH__ )
 	#error MacOS/OSX currently unsupported
 #endif
-
-#include "gapi/gapi.hpp"
 
 void(*gapi::detail::get_gl_fp(const char *name))(){
 	return glGetProcAddress(name);

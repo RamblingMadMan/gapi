@@ -1,12 +1,12 @@
 GAPI
 ====
 
-Modern C++17 OpenGL function loader and wrapper library
+Modern C++17 OpenGL 4.5 function loader and wrapper library
 
 About
 =====
 
-OpenGL function loader and wrapper library taking advantage of modern C++ features.
+OpenGL function loader and OpenGL 4.5 wrapper library taking advantage of modern C++ features.
 
 Usage
 =====
@@ -77,7 +77,7 @@ sudo apt install libtool-bin
 
 To build simply run `make` from the root source directory.
 
-The library will be built into BUILD_DIR, then within that directory either debug or release.
+The library will be built into `BUILD_DIR`, then within that directory either debug or release.
 
 possible flags that can be set at build time are
 

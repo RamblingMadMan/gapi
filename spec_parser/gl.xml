@@ -1592,7 +1592,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 </documentation>
         <function name="glGetUniformLocation" type="GLint">
           <param name="program" type="GLuint"/>
-          <param name="name" type="GLchar *"/>
+          <param name="name" type="const GLchar *"/>
         </function>
       </functions>
       <functions>
@@ -2300,7 +2300,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
         <function name="glShaderSource" type="void">
           <param name="shader" type="GLuint"/>
           <param name="count" type="GLsizei"/>
-          <param name="string" type="GLchar **"/>
+          <param name="string" type="const GLchar **"/>
           <param name="length" type="GLint *"/>
         </function>
       </functions>
@@ -2597,116 +2597,116 @@ https://github.com/AlexandreFournier/gl-spec-parser
         <function name="glUniform1fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniform2fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniform3fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniform4fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLfloat *"/>
+          <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniform1iv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLint *"/>
+		  <param name="value" type="const GLint *"/>
         </function>
         <function name="glUniform2iv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLint *"/>
+		  <param name="value" type="const GLint *"/>
         </function>
         <function name="glUniform3iv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLint *"/>
+		  <param name="value" type="const GLint *"/>
         </function>
         <function name="glUniform4iv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLint *"/>
+		  <param name="value" type="const GLint *"/>
         </function>
         <function name="glUniform1uiv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLuint *"/>
+		  <param name="value" type="const GLuint *"/>
         </function>
         <function name="glUniform2uiv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLuint *"/>
+		  <param name="value" type="const GLuint *"/>
         </function>
         <function name="glUniform3uiv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLuint *"/>
+		  <param name="value" type="const GLuint *"/>
         </function>
         <function name="glUniform4uiv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
-          <param name="value" type="GLuint *"/>
+		  <param name="value" type="const GLuint *"/>
         </function>
         <function name="glUniformMatrix2fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix3fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix4fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix2x3fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix3x2fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix2x4fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix4x2fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix3x4fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
         <function name="glUniformMatrix4x3fv" type="void">
           <param name="location" type="GLint"/>
           <param name="count" type="GLsizei"/>
           <param name="transpose" type="GLboolean"/>
-          <param name="value" type="GLfloat *"/>
+		  <param name="value" type="const GLfloat *"/>
         </function>
       </functions>
       <functions>

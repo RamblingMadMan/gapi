@@ -93,12 +93,12 @@ namespace gapi{
 
 			Ret init_call(Args ... args){
 				init();
-				return (*fn)(args...);
+				return (*fptr)(args...);
 			}
 
 			Ret init_call(no_test_t, Args ... args){
 				init(no_test);
-				return (*fn)(args...);
+				return (*fptr)(args...);
 			}
 
 			const std::string &name() const noexcept{ return fn_name; }
@@ -119,6 +119,8 @@ namespace gapi{
 				public:
 					func_base(gl_function<Ret(Args...)> *self_)
 						: self{self_}{}
+						
+					virtual ~func_base(){}
 
 					virtual Ret operator()(Args ... args) = 0;
 

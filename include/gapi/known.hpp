@@ -1170,7 +1170,7 @@ namespace gapi{
 				else if(fn == "glGetUniformLocation"){
 					ret = typeid(GLint).name();
 					args.emplace_back("program", typeid(GLuint).name());
-					args.emplace_back("name", typeid(GLchar *).name());
+					args.emplace_back("name", typeid(const GLchar *).name());
 				}
 				else if(fn == "glGetUniformSubroutineuiv"){
 					ret = typeid(void).name();
@@ -1769,7 +1769,7 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("shader", typeid(GLuint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("string", typeid(GLchar **).name());
+					args.emplace_back("string", typeid(const GLchar **).name());
 					args.emplace_back("length", typeid(GLint *).name());
 				}
 				else if(fn == "glStencilFunc"){
@@ -2029,136 +2029,136 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniform2fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniform3fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniform4fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniform1iv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLint *).name());
+					args.emplace_back("value", typeid(const GLint *).name());
 				}
 				else if(fn == "glUniform2iv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLint *).name());
+					args.emplace_back("value", typeid(const GLint *).name());
 				}
 				else if(fn == "glUniform3iv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLint *).name());
+					args.emplace_back("value", typeid(const GLint *).name());
 				}
 				else if(fn == "glUniform4iv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLint *).name());
+					args.emplace_back("value", typeid(const GLint *).name());
 				}
 				else if(fn == "glUniform1uiv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLuint *).name());
+					args.emplace_back("value", typeid(const GLuint *).name());
 				}
 				else if(fn == "glUniform2uiv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLuint *).name());
+					args.emplace_back("value", typeid(const GLuint *).name());
 				}
 				else if(fn == "glUniform3uiv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLuint *).name());
+					args.emplace_back("value", typeid(const GLuint *).name());
 				}
 				else if(fn == "glUniform4uiv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
-					args.emplace_back("value", typeid(GLuint *).name());
+					args.emplace_back("value", typeid(const GLuint *).name());
 				}
 				else if(fn == "glUniformMatrix2fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix3fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix4fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix2x3fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix3x2fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix2x4fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix4x2fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix3x4fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformMatrix4x3fv"){
 					ret = typeid(void).name();
 					args.emplace_back("location", typeid(GLint).name());
 					args.emplace_back("count", typeid(GLsizei).name());
 					args.emplace_back("transpose", typeid(GLboolean).name());
-					args.emplace_back("value", typeid(GLfloat *).name());
+					args.emplace_back("value", typeid(const GLfloat *).name());
 				}
 				else if(fn == "glUniformBlockBinding"){
 					ret = typeid(void).name();
