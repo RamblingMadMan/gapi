@@ -203,7 +203,7 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("size", typeid(GLsizeiptr).name());
-					args.emplace_back("data", typeid(GLvoid *).name());
+					args.emplace_back("data", typeid(const GLvoid *).name());
 					args.emplace_back("usage", typeid(GLenum).name());
 				}
 				else if(fn == "glBufferSubData"){
@@ -212,6 +212,27 @@ namespace gapi{
 					args.emplace_back("offset", typeid(GLintptr).name());
 					args.emplace_back("size", typeid(GLsizeiptr).name());
 					args.emplace_back("data", typeid(GLvoid *).name());
+				}
+				else if(fn == "glNamedBufferSubData"){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("offset", typeid(GLintptr).name());
+					args.emplace_back("size", typeid(GLsizei).name());
+					args.emplace_back("data", typeid(const void *).name());
+				}
+				else if(fn == "glBufferStorage"){
+					ret = typeid(void).name();
+					args.emplace_back("target", typeid(GLenum).name());
+					args.emplace_back("size", typeid(GLsizeiptr).name());
+					args.emplace_back("data", typeid(const GLvoid *).name());
+					args.emplace_back("flags", typeid(GLbitfield).name());
+				}
+				else if(fn == "glNamedBufferStorage"){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("size", typeid(GLsizei).name());
+					args.emplace_back("data", typeid(const void*).name());
+					args.emplace_back("flags", typeid(GLbitfield).name());
 				}
 				else if(fn == "glCheckFramebufferStatus"){
 					ret = typeid(GLenum).name();
@@ -647,6 +668,16 @@ namespace gapi{
 					ret = typeid(void).name();
 					args.emplace_back("index", typeid(GLuint).name());
 				}
+				else if(fn == "glEnableVertexArrayAttrib"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("index", typeid(GLuint).name());
+				}
+				else if(fn == "glDisableVertexArrayAttrib"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("index", typeid(GLuint).name());
+				}
 				else if(fn == "glFenceSync"){
 					ret = typeid(GLsync).name();
 					args.emplace_back("condition", typeid(GLenum).name());
@@ -716,6 +747,11 @@ namespace gapi{
 					args.emplace_back("mode", typeid(GLenum).name());
 				}
 				else if(fn == "glGenBuffers"){
+					ret = typeid(void).name();
+					args.emplace_back("n", typeid(GLsizei).name());
+					args.emplace_back("buffers", typeid(GLuint *).name());
+				}
+				else if(fn == "glCreateBuffers"){
 					ret = typeid(void).name();
 					args.emplace_back("n", typeid(GLsizei).name());
 					args.emplace_back("buffers", typeid(GLuint *).name());
@@ -914,6 +950,13 @@ namespace gapi{
 					args.emplace_back("offset", typeid(GLintptr).name());
 					args.emplace_back("size", typeid(GLsizeiptr).name());
 					args.emplace_back("data", typeid(GLvoid *).name());
+				}
+				else if(fn == "glGetNamedBufferSubData"){
+					ret = typeid(void).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("offset", typeid(GLintptr).name());
+					args.emplace_back("size", typeid(GLsizei).name());
+					args.emplace_back("data", typeid(void *).name());
 				}
 				else if(fn == "glGetCompressedTexImage"){
 					ret = typeid(void).name();
@@ -1294,15 +1337,31 @@ namespace gapi{
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("access", typeid(GLenum).name());
 				}
+				else if(fn == "glMapNamedBuffer"){
+					ret = typeid(void *).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("access", typeid(GLenum).name());
+				}
 				else if(fn == "glUnmapBuffer"){
 					ret = typeid(GLboolean).name();
 					args.emplace_back("target", typeid(GLenum).name());
+				}
+				else if(fn == "glUnmapNamedBuffer"){
+					ret = typeid(GLboolean).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
 				}
 				else if(fn == "glMapBufferRange"){
 					ret = typeid(void *).name();
 					args.emplace_back("target", typeid(GLenum).name());
 					args.emplace_back("offset", typeid(GLintptr).name());
 					args.emplace_back("length", typeid(GLsizeiptr).name());
+					args.emplace_back("access", typeid(GLbitfield).name());
+				}
+				else if(fn == "glMapNamedBufferRange"){
+					ret = typeid(void *).name();
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("offset", typeid(GLintptr).name());
+					args.emplace_back("length", typeid(GLsizei).name());
 					args.emplace_back("access", typeid(GLbitfield).name());
 				}
 				else if(fn == "glMinSampleShading"){
@@ -2638,6 +2697,64 @@ namespace gapi{
 					args.emplace_back("sync", typeid(GLsync).name());
 					args.emplace_back("flags", typeid(GLbitfield).name());
 					args.emplace_back("timeout", typeid(GLuint64).name());
+				}
+				else if(fn == "glCreateVertexArrays"){
+					ret = typeid(void).name();
+					args.emplace_back("n", typeid(GLsizei).name());
+					args.emplace_back("arrays", typeid(GLuint *).name());
+				}
+				else if(fn == "glVertexAttribBinding"){
+					ret = typeid(void).name();
+					args.emplace_back("attribindex", typeid(GLuint).name());
+					args.emplace_back("bindingindex", typeid(GLuint).name());
+				}
+				else if(fn == "glVertexArrayAttribBinding"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("attribindex", typeid(GLuint).name());
+					args.emplace_back("bindingindex", typeid(GLuint).name());
+				}
+				else if(fn == "glVertexAttribFormat"){
+					ret = typeid(void).name();
+					args.emplace_back("attribindex", typeid(GLuint).name());
+					args.emplace_back("size", typeid(GLint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("relativeoffset", typeid(GLuint).name());
+				}
+				else if(fn == "glVertexArrayAttribFormat"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("attribindex", typeid(GLuint).name());
+					args.emplace_back("size", typeid(GLint).name());
+					args.emplace_back("type", typeid(GLenum).name());
+					args.emplace_back("normalized", typeid(GLboolean).name());
+					args.emplace_back("relativeoffset", typeid(GLuint).name());
+				}
+				else if(fn == "glBindVertexBuffer"){
+					ret = typeid(void).name();
+					args.emplace_back("bindingindex", typeid(GLuint).name());
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("offset", typeid(GLintptr).name());
+					args.emplace_back("stride", typeid(GLintptr).name());
+				}
+				else if(fn == "glVertexArrayVertexBuffer"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("bindingindex", typeid(GLuint).name());
+					args.emplace_back("buffer", typeid(GLuint).name());
+					args.emplace_back("offset", typeid(GLintptr).name());
+					args.emplace_back("stride", typeid(GLsizei).name());
+				}
+				else if(fn == "glVertexArrayElementBuffer"){
+					ret = typeid(void).name();
+					args.emplace_back("vaobj", typeid(GLuint).name());
+					args.emplace_back("buffer", typeid(GLuint).name());
+				}
+				else if(fn == "glDebugMessageCallback"){
+					ret = typeid(void).name();
+					args.emplace_back("callback", typeid(GLDEBUGPROC).name());
+					args.emplace_back("userParam", typeid(void *).name());
 				}
 			}
 

@@ -40,8 +40,11 @@ namespace gapi{
 		extern gl_function<void(GLenum, GLenum, GLenum, GLenum)> glBlendFuncSeparate;
 		extern gl_function<void(GLuint, GLenum, GLenum, GLenum, GLenum)> glBlendFuncSeparatei;
 		extern gl_function<void(GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLbitfield, GLenum)> glBlitFramebuffer;
-		extern gl_function<void(GLenum, GLsizeiptr, GLvoid *, GLenum)> glBufferData;
+		extern gl_function<void(GLenum, GLsizeiptr, const GLvoid *, GLenum)> glBufferData;
 		extern gl_function<void(GLenum, GLintptr, GLsizeiptr, GLvoid *)> glBufferSubData;
+		extern gl_function<void(GLuint, GLintptr, GLsizei, const void *)> glNamedBufferSubData;
+		extern gl_function<void(GLenum, GLsizeiptr, const GLvoid *, GLbitfield)> glBufferStorage;
+		extern gl_function<void(GLuint, GLsizei, const void*, GLbitfield)> glNamedBufferStorage;
 		extern gl_function<GLenum(GLenum)> glCheckFramebufferStatus;
 		extern gl_function<void(GLenum, GLenum)> glClampColor;
 		extern gl_function<void(GLbitfield)> glClear;
@@ -111,6 +114,8 @@ namespace gapi{
 		extern gl_function<void(GLenum, GLuint)> glDisablei;
 		extern gl_function<void(GLuint)> glEnableVertexAttribArray;
 		extern gl_function<void(GLuint)> glDisableVertexAttribArray;
+		extern gl_function<void(GLuint, GLuint)> glEnableVertexArrayAttrib;
+		extern gl_function<void(GLuint, GLuint)> glDisableVertexArrayAttrib;
 		extern gl_function<GLsync(GLenum, GLbitfield)> glFenceSync;
 		extern gl_function<void()> glFinish;
 		extern gl_function<void()> glFlush;
@@ -123,6 +128,7 @@ namespace gapi{
 		extern gl_function<void(GLenum, GLenum, GLuint, GLint, GLint)> glFramebufferTextureLayer;
 		extern gl_function<void(GLenum)> glFrontFace;
 		extern gl_function<void(GLsizei, GLuint *)> glGenBuffers;
+		extern gl_function<void(GLsizei, GLuint *)> glCreateBuffers;
 		extern gl_function<void(GLsizei, GLuint *)> glGenFramebuffers;
 		extern gl_function<void(GLsizei, GLuint *)> glGenProgramPipelines;
 		extern gl_function<void(GLsizei, GLuint *)> glGenQueries;
@@ -154,6 +160,7 @@ namespace gapi{
 		extern gl_function<void(GLenum, GLenum, GLint *)> glGetBufferParameteriv;
 		extern gl_function<void(GLenum, GLenum, GLvoid **)> glGetBufferPointerv;
 		extern gl_function<void(GLenum, GLintptr, GLsizeiptr, GLvoid *)> glGetBufferSubData;
+		extern gl_function<void(GLuint, GLintptr, GLsizei, void *)> glGetNamedBufferSubData;
 		extern gl_function<void(GLenum, GLint, GLvoid *)> glGetCompressedTexImage;
 		extern gl_function<GLenum()> glGetError;
 		extern gl_function<GLint(GLuint, char *)> glGetFragDataIndex;
@@ -221,8 +228,11 @@ namespace gapi{
 		extern gl_function<void(GLuint)> glLinkProgram;
 		extern gl_function<void(GLenum)> glLogicOp;
 		extern gl_function<void *(GLenum, GLenum)> glMapBuffer;
+		extern gl_function<void *(GLuint, GLenum)> glMapNamedBuffer;
 		extern gl_function<GLboolean(GLenum)> glUnmapBuffer;
+		extern gl_function<GLboolean(GLuint)> glUnmapNamedBuffer;
 		extern gl_function<void *(GLenum, GLintptr, GLsizeiptr, GLbitfield)> glMapBufferRange;
+		extern gl_function<void *(GLuint, GLintptr, GLsizei, GLbitfield)> glMapNamedBufferRange;
 		extern gl_function<void(GLclampf)> glMinSampleShading;
 		extern gl_function<void(GLenum, GLint *, GLsizei *, GLsizei)> glMultiDrawArrays;
 		extern gl_function<void(GLenum, GLsizei *, GLenum, GLvoid **, GLsizei)> glMultiDrawElements;
@@ -433,6 +443,15 @@ namespace gapi{
 		extern gl_function<void(GLuint, GLfloat, GLfloat, GLfloat, GLfloat)> glViewportIndexedf;
 		extern gl_function<void(GLuint, GLfloat *)> glViewportIndexedfv;
 		extern gl_function<void(GLsync, GLbitfield, GLuint64)> glWaitSync;
+		extern gl_function<void(GLsizei, GLuint *)> glCreateVertexArrays;
+		extern gl_function<void(GLuint, GLuint)> glVertexAttribBinding;
+		extern gl_function<void(GLuint, GLuint, GLuint)> glVertexArrayAttribBinding;
+		extern gl_function<void(GLuint, GLint, GLenum, GLboolean, GLuint)> glVertexAttribFormat;
+		extern gl_function<void(GLuint, GLuint, GLint, GLenum, GLboolean, GLuint)> glVertexArrayAttribFormat;
+		extern gl_function<void(GLuint, GLuint, GLintptr, GLintptr)> glBindVertexBuffer;
+		extern gl_function<void(GLuint, GLuint, GLuint, GLintptr, GLsizei)> glVertexArrayVertexBuffer;
+		extern gl_function<void(GLuint, GLuint)> glVertexArrayElementBuffer;
+		extern gl_function<void(GLDEBUGPROC, void *)> glDebugMessageCallback;
 	}
 }
 

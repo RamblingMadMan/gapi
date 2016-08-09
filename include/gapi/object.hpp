@@ -6,7 +6,7 @@
 namespace gapi{
 	class object{
 		public:
-			virtual ~object() = 0;
+			virtual ~object() = default;
 			
 			GLuint get() const noexcept{ return handle; }
 			

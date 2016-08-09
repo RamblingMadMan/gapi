@@ -28,7 +28,7 @@ auto main() -> int{
 	std::vector<std::pair<std::string, std::string>> consts;
 
 	rapidxml::file<> xmlFile{"gl.xml"};
-	rapidxml::xml_document<> doc;
+	rapidxml::xml_document<char> doc;
 	doc.parse<0>(xmlFile.data());
 	
 	using xml_node = rapidxml::xml_node<>;
@@ -36,7 +36,7 @@ auto main() -> int{
 	xml_node *proot = doc.first_node(); // <module>
 	if(!proot)
 		throw std::runtime_error{"no root <module> in gl.xml"};
-	
+
 	for(xml_node *pnode = proot->first_node("libraries"); pnode; pnode = pnode->next_sibling()){
 		for(xml_node *plib = pnode->first_node("library"); plib; plib = plib->next_sibling()){
 			for(xml_node *pfuncs = plib->first_node("functions"); pfuncs; pfuncs = pfuncs->next_sibling()){
@@ -50,8 +50,10 @@ auto main() -> int{
 				for(xml_node *pfunc = pfuncs->first_node("function"); pfunc; pfunc = pfunc->next_sibling()){
 					fn f;
 					auto name = pfunc->first_attribute("name");
-					if(!name)
+					if(!name){
+						std::cout << brief << std::endl;
 						throw std::runtime_error{"function without a name in gl.xml"};
+					}
 					
 					f.name = name->value();
 					
@@ -161,7 +163,7 @@ auto main() -> int{
 					bool break_ = false;
 					for(auto &&d : done_consts)
 						if(c.first == d) break_ = true;
-					if(break_) break;
+					if(break_) continue;
 		out	<<	"\tconstexpr auto " << c.first << " = " << c.second << ";\n";
 					done_consts.push_back(c.first);
 				}

@@ -37,8 +37,11 @@ namespace gapi{
 		gl_function<void(GLenum, GLenum, GLenum, GLenum)> glBlendFuncSeparate{deferred_init, "glBlendFuncSeparate"};
 		gl_function<void(GLuint, GLenum, GLenum, GLenum, GLenum)> glBlendFuncSeparatei{deferred_init, "glBlendFuncSeparatei"};
 		gl_function<void(GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLint, GLbitfield, GLenum)> glBlitFramebuffer{deferred_init, "glBlitFramebuffer"};
-		gl_function<void(GLenum, GLsizeiptr, GLvoid *, GLenum)> glBufferData{deferred_init, "glBufferData"};
+		gl_function<void(GLenum, GLsizeiptr, const GLvoid *, GLenum)> glBufferData{deferred_init, "glBufferData"};
 		gl_function<void(GLenum, GLintptr, GLsizeiptr, GLvoid *)> glBufferSubData{deferred_init, "glBufferSubData"};
+		gl_function<void(GLuint, GLintptr, GLsizei, const void *)> glNamedBufferSubData{deferred_init, "glNamedBufferSubData"};
+		gl_function<void(GLenum, GLsizeiptr, const GLvoid *, GLbitfield)> glBufferStorage{deferred_init, "glBufferStorage"};
+		gl_function<void(GLuint, GLsizei, const void*, GLbitfield)> glNamedBufferStorage{deferred_init, "glNamedBufferStorage"};
 		gl_function<GLenum(GLenum)> glCheckFramebufferStatus{deferred_init, "glCheckFramebufferStatus"};
 		gl_function<void(GLenum, GLenum)> glClampColor{deferred_init, "glClampColor"};
 		gl_function<void(GLbitfield)> glClear{deferred_init, "glClear"};
@@ -108,6 +111,8 @@ namespace gapi{
 		gl_function<void(GLenum, GLuint)> glDisablei{deferred_init, "glDisablei"};
 		gl_function<void(GLuint)> glEnableVertexAttribArray{deferred_init, "glEnableVertexAttribArray"};
 		gl_function<void(GLuint)> glDisableVertexAttribArray{deferred_init, "glDisableVertexAttribArray"};
+		gl_function<void(GLuint, GLuint)> glEnableVertexArrayAttrib{deferred_init, "glEnableVertexArrayAttrib"};
+		gl_function<void(GLuint, GLuint)> glDisableVertexArrayAttrib{deferred_init, "glDisableVertexArrayAttrib"};
 		gl_function<GLsync(GLenum, GLbitfield)> glFenceSync{deferred_init, "glFenceSync"};
 		gl_function<void()> glFinish{deferred_init, "glFinish"};
 		gl_function<void()> glFlush{deferred_init, "glFlush"};
@@ -120,6 +125,7 @@ namespace gapi{
 		gl_function<void(GLenum, GLenum, GLuint, GLint, GLint)> glFramebufferTextureLayer{deferred_init, "glFramebufferTextureLayer"};
 		gl_function<void(GLenum)> glFrontFace{deferred_init, "glFrontFace"};
 		gl_function<void(GLsizei, GLuint *)> glGenBuffers{deferred_init, "glGenBuffers"};
+		gl_function<void(GLsizei, GLuint *)> glCreateBuffers{deferred_init, "glCreateBuffers"};
 		gl_function<void(GLsizei, GLuint *)> glGenFramebuffers{deferred_init, "glGenFramebuffers"};
 		gl_function<void(GLsizei, GLuint *)> glGenProgramPipelines{deferred_init, "glGenProgramPipelines"};
 		gl_function<void(GLsizei, GLuint *)> glGenQueries{deferred_init, "glGenQueries"};
@@ -151,6 +157,7 @@ namespace gapi{
 		gl_function<void(GLenum, GLenum, GLint *)> glGetBufferParameteriv{deferred_init, "glGetBufferParameteriv"};
 		gl_function<void(GLenum, GLenum, GLvoid **)> glGetBufferPointerv{deferred_init, "glGetBufferPointerv"};
 		gl_function<void(GLenum, GLintptr, GLsizeiptr, GLvoid *)> glGetBufferSubData{deferred_init, "glGetBufferSubData"};
+		gl_function<void(GLuint, GLintptr, GLsizei, void *)> glGetNamedBufferSubData{deferred_init, "glGetNamedBufferSubData"};
 		gl_function<void(GLenum, GLint, GLvoid *)> glGetCompressedTexImage{deferred_init, "glGetCompressedTexImage"};
 		gl_function<GLenum()> glGetError{deferred_init, "glGetError"};
 		gl_function<GLint(GLuint, char *)> glGetFragDataIndex{deferred_init, "glGetFragDataIndex"};
@@ -218,8 +225,11 @@ namespace gapi{
 		gl_function<void(GLuint)> glLinkProgram{deferred_init, "glLinkProgram"};
 		gl_function<void(GLenum)> glLogicOp{deferred_init, "glLogicOp"};
 		gl_function<void *(GLenum, GLenum)> glMapBuffer{deferred_init, "glMapBuffer"};
+		gl_function<void *(GLuint, GLenum)> glMapNamedBuffer{deferred_init, "glMapNamedBuffer"};
 		gl_function<GLboolean(GLenum)> glUnmapBuffer{deferred_init, "glUnmapBuffer"};
+		gl_function<GLboolean(GLuint)> glUnmapNamedBuffer{deferred_init, "glUnmapNamedBuffer"};
 		gl_function<void *(GLenum, GLintptr, GLsizeiptr, GLbitfield)> glMapBufferRange{deferred_init, "glMapBufferRange"};
+		gl_function<void *(GLuint, GLintptr, GLsizei, GLbitfield)> glMapNamedBufferRange{deferred_init, "glMapNamedBufferRange"};
 		gl_function<void(GLclampf)> glMinSampleShading{deferred_init, "glMinSampleShading"};
 		gl_function<void(GLenum, GLint *, GLsizei *, GLsizei)> glMultiDrawArrays{deferred_init, "glMultiDrawArrays"};
 		gl_function<void(GLenum, GLsizei *, GLenum, GLvoid **, GLsizei)> glMultiDrawElements{deferred_init, "glMultiDrawElements"};
@@ -430,5 +440,14 @@ namespace gapi{
 		gl_function<void(GLuint, GLfloat, GLfloat, GLfloat, GLfloat)> glViewportIndexedf{deferred_init, "glViewportIndexedf"};
 		gl_function<void(GLuint, GLfloat *)> glViewportIndexedfv{deferred_init, "glViewportIndexedfv"};
 		gl_function<void(GLsync, GLbitfield, GLuint64)> glWaitSync{deferred_init, "glWaitSync"};
+		gl_function<void(GLsizei, GLuint *)> glCreateVertexArrays{deferred_init, "glCreateVertexArrays"};
+		gl_function<void(GLuint, GLuint)> glVertexAttribBinding{deferred_init, "glVertexAttribBinding"};
+		gl_function<void(GLuint, GLuint, GLuint)> glVertexArrayAttribBinding{deferred_init, "glVertexArrayAttribBinding"};
+		gl_function<void(GLuint, GLint, GLenum, GLboolean, GLuint)> glVertexAttribFormat{deferred_init, "glVertexAttribFormat"};
+		gl_function<void(GLuint, GLuint, GLint, GLenum, GLboolean, GLuint)> glVertexArrayAttribFormat{deferred_init, "glVertexArrayAttribFormat"};
+		gl_function<void(GLuint, GLuint, GLintptr, GLintptr)> glBindVertexBuffer{deferred_init, "glBindVertexBuffer"};
+		gl_function<void(GLuint, GLuint, GLuint, GLintptr, GLsizei)> glVertexArrayVertexBuffer{deferred_init, "glVertexArrayVertexBuffer"};
+		gl_function<void(GLuint, GLuint)> glVertexArrayElementBuffer{deferred_init, "glVertexArrayElementBuffer"};
+		gl_function<void(GLDEBUGPROC, void *)> glDebugMessageCallback{deferred_init, "glDebugMessageCallback"};
 	}
 }

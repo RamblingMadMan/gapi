@@ -26,6 +26,16 @@ namespace gapi{
 	using GLintptr = std::intptr_t;
 	using GLsizeiptr = std::intptr_t;
 	using GLsync = std::uintptr_t;
+
+	using GLDEBUGPROC = void(*)(
+		GLenum source,
+		GLenum type,
+		GLuint id,
+		GLenum severity,
+		GLsizei length,
+		const GLchar* message,
+		const void* userParam
+	);
 }
 
 #endif // GAPI_BASIC_TYPES_HPP

@@ -6,7 +6,7 @@ DESTDIR?=/usr/local
 
 CXX:=g++-6
 CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
-LDFLAGS?=-rpath $(DESTDIR)/lib -version-info 1:0:1
+LDFLAGS?=-rpath $(DESTDIR)/lib -L$(BUILD_DIR)
 LIBS?=
 
 OPTFLAGS_DEBUG?=-Og -ggdb
@@ -34,12 +34,15 @@ export CXXFLAGS
 export LDFLAGS
 export LIBS
 
-.PHONY: all src install clean
+.PHONY: all src test install clean clean_src clean_test
 
 all: dir src
 
 src:
 	$(MAKE) -C src
+
+test: src
+	$(MAKE) -C test
 
 dir: | $(BUILD_DIR)
 
@@ -49,5 +52,11 @@ $(BUILD_DIR):
 install:
 	$(MAKE) -C src install
 
-clean:
+clean: clean_src clean_test
+
+clean_src:
 	$(MAKE) -C src clean
+
+clean_test:
+	$(MAKE) -C test clean
+	
