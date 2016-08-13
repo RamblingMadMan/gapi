@@ -1,5 +1,7 @@
 #include <stdexcept>
 #include <cstdlib>
+#include <cstring>
+#include <cctype>
 #include <vector>
 #include <functional>
 #include <thread>
@@ -130,11 +132,31 @@ try{
 	std::ofstream out("/dev/null");
 	auto old_cerr_rdbuf = std::cerr.rdbuf();
 
+	int timems = 1000;
+
 	for(auto i = 1; i < argc; i++){
 		if(std::strncmp(argv[i], "--", 2) != 0)
 			throw std::runtime_error{"invalid command line option"};
-		else if((argv[i]+2) == "nodebug"s)
+		else if((argv[i]+2) == "--nodebug"s)
 			std::cerr.rdbuf(out.rdbuf());
+		else if((argv[i]+2) == "--pausetime"s){
+			if(argc < (i+1)){
+				std::cout << "no time passed after pausetime flag\n";
+				break;
+			}
+
+			++i;
+			strnlen(argv[i], 4);
+
+			char timestr[5]{0};
+			std::strncpy(timestr, argv[i], 4);
+
+			for(auto n = 0; n < 4; n++)
+				if(!std::isdigit(timestr[n]))
+					throw std::runtime_error{"non-digit character in time string"};
+
+			int timems = std::atoi(timestr);
+		}
 	}
 
 	std::atexit(atexit_fn);
@@ -224,7 +246,7 @@ try{
 		SDL_GL_SwapWindow(window);
 
 		if(test_res)
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(timems));
 	
 		if(i == tests.size())
 			running = false;

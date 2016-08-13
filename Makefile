@@ -5,7 +5,7 @@ BUILD_DIR?=$(PWD)/build
 DESTDIR?=/usr/local
 
 CXX:=g++-6
-CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(PWD)/include
+CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(SRC_DIR)/include
 LDFLAGS?=-rpath $(DESTDIR)/lib -L$(BUILD_DIR)
 LIBS?=
 
@@ -60,11 +60,11 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 
-$(SRC_DIR)/src/functions.cpp: $(SRC_DIR)/spec_parser/%.hpp
+$(SRC_DIR)/src/functions.cpp: $(SRC_DIR)/spec_parser/functions.hpp
 	cd $(SRC_DIR)/spec_parser;\
 	./replace.sh
 
-$(SRC_DIR)/spec_parser/%.hpp: $(SRC_DIR)/spec_parser/spec_parser
+$(SRC_DIR)/spec_parser/functions.hpp: $(SRC_DIR)/spec_parser/spec_parser
 	cd $(SRC_DIR)/spec_parser;\
 	./spec_parser
 

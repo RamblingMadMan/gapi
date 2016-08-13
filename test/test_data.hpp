@@ -58,9 +58,11 @@ constexpr shader_source texture_vertex_src =
 	GLSL_LINE( GLSL_LAYOUT(location = 0) GLSL_IN GLSL_VEC3 GLSL(vert) )
 	GLSL_LINE( GLSL_LAYOUT(location = 1) GLSL_IN GLSL_VEC2 GLSL(uv) )
 
+	GLSL_LINE( GLSL_OUT GLSL_VEC3 GLSL(vert_f) )
 	GLSL_LINE( GLSL_OUT GLSL_VEC2 GLSL(uv_f) )
 
 	GLSL_FN(void, main,(),
+		GLSL_LINE( GLSL(vert_f = vert) )
 		GLSL_LINE( GLSL(uv_f = uv) )
 		GLSL_LINE( GLSL(gl_Position = vec4(vert, 1.0)) )
 	)
@@ -72,12 +74,13 @@ constexpr shader_source texture_fragment_src =
 
 	GLSL_LINE( GLSL_UNIFORM GLSL_SAMPLER2D GLSL(tex) )
 
+	GLSL_LINE( GLSL_IN GLSL_VEC3 GLSL(vert_f) )
 	GLSL_LINE( GLSL_IN GLSL_VEC2 GLSL(uv_f) )
 
 	GLSL_LINE( GLSL_LAYOUT(location = 0) GLSL_OUT GLSL_VEC4 GLSL(screen) )
 
 	GLSL_FN(void, main,(),
-		GLSL_LINE( GLSL(screen = texture(tex, uv_f)) )
+		GLSL_LINE( GLSL(screen = texture(tex, uv_f) * vec4(vert_f, 1.0)) )
 	)
 ;
 
