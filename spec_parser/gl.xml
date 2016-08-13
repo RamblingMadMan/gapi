@@ -1088,11 +1088,14 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glGenerateMipmap - generate mipmaps for a specified texture target
+		<documentation>glGenerateMipmap, glGenerateTextureMipmap — generate mipmaps for a specified texture object
 </documentation>
 		<function name="glGenerateMipmap" type="void">
 		  <param name="target" type="GLenum"/>
 		</function>
+		<function name="glGenerateTextureMipmap" type="void">
+  			<param name="texture" type="GLuint" />
+  		</function>
 	  </functions>
 	  <functions>
 		<documentation>glGet - return the value or values of a selected parameter
@@ -2531,7 +2534,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glTexSubImage1D - specify a one-dimensional texture subimage
+		<documentation>glTexSubImage1D, glTextureSubImage1D — specify a one-dimensional texture subimage
 </documentation>
 		<function name="glTexSubImage1D" type="void">
 		  <param name="target" type="GLenum"/>
@@ -2540,11 +2543,20 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="width" type="GLsizei"/>
 		  <param name="format" type="GLenum"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="data" type="GLvoid *"/>
+		  <param name="pixels" type="const GLvoid *"/>
+		</function>
+		<function name="glTextureSubImage1D" type="void">
+		  <param name="texture" type="GLuint"/>
+		  <param name="level" type="GLint"/>
+		  <param name="xoffset" type="GLint"/>
+		  <param name="width" type="GLsizei"/>
+		  <param name="format" type="GLenum"/>
+		  <param name="type" type="GLenum"/>
+		  <param name="pixels" type="const void *"/>
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glTexSubImage2D - specify a two-dimensional texture subimage
+		<documentation>glTexSubImage2D, glTextureSubImage2D — specify a two-dimensional texture subimage
 </documentation>
 		<function name="glTexSubImage2D" type="void">
 		  <param name="target" type="GLenum"/>
@@ -2555,11 +2567,22 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="height" type="GLsizei"/>
 		  <param name="format" type="GLenum"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="data" type="GLvoid *"/>
+		  <param name="pixels" type="GLvoid *"/>
+		</function>
+		<function name="glTextureSubImage2D" type="void">
+		  <param name="texture" type="GLuint"/>
+		  <param name="level" type="GLint"/>
+		  <param name="xoffset" type="GLint"/>
+		  <param name="yoffset" type="GLint"/>
+		  <param name="width" type="GLsizei"/>
+		  <param name="height" type="GLsizei"/>
+		  <param name="format" type="GLenum"/>
+		  <param name="type" type="GLenum"/>
+		  <param name="pixels" type="const void *"/>
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glTexSubImage3D - specify a three-dimensional texture subimage
+		<documentation>glTexSubImage3D, glTextureSubImage3D — specify a three-dimensional texture subimage
 </documentation>
 		<function name="glTexSubImage3D" type="void">
 		  <param name="target" type="GLenum"/>
@@ -2572,7 +2595,117 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="depth" type="GLsizei"/>
 		  <param name="format" type="GLenum"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="data" type="GLvoid *"/>
+		  <param name="pixels" type="const GLvoid *"/>
+		</function>
+		<function name="glTextureSubImage3D" type="void">
+		  <param name="texture" type="GLuint"/>
+		  <param name="level" type="GLint"/>
+		  <param name="xoffset" type="GLint"/>
+		  <param name="yoffset" type="GLint"/>
+		  <param name="zoffset" type="GLint"/>
+		  <param name="width" type="GLsizei"/>
+		  <param name="height" type="GLsizei"/>
+		  <param name="depth" type="GLsizei"/>
+		  <param name="format" type="GLenum"/>
+		  <param name="type" type="GLenum"/>
+		  <param name="pixels" type="const void *"/>
+		</function>
+	  </functions>
+	  <functions>
+	  	<documentation>glTexStorage1D, glTextureStorage1D — simultaneously specify storage for all levels of a one-dimensional texture
+</documentation>
+		<function name="glTexStorage1D" type="void">
+			<param name="target" type="GLenum" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+		</function>
+		<function name="glTextureStorage1D" type="void">
+			<param name="texture" type="GLuint" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+		</function>
+	  </functions>
+	  <functions>
+	  	<documentation>glTexStorage2D, glTextureStorage2D — simultaneously specify storage for all levels of a two-dimensional or one-dimensional array texture
+C Specification
+</documentation>
+		<function name="glTexStorage2D" type="void">
+			<param name="target" type="GLenum" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+		</function>
+		<function name="glTextureStorage2D" type="void">
+			<param name="texture" type="GLuint" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+		</function>
+	  </functions>
+	  <functions>
+	  	<documentation>glTexStorage3D, glTextureStorage3D — simultaneously specify storage for all levels of a three-dimensional, two-dimensional array or cube-map array texture
+</documentation>
+		<function name="glTexStorage3D" type="void">
+			<param name="target" type="GLenum" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="depth" type="GLsizei" />
+		</function>
+		<function name="glTextureStorage3D" type="void">
+			<param name="texture" type="GLuint" />
+			<param name="levels" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="depth" type="GLsizei" />
+		</function>
+	  </functions>
+	  <functions>
+	  	<documentation>glTexStorage2DMultisample, glTextureStorage2DMultisample — specify storage for a two-dimensional multisample texture
+</documentation>
+		<function name="glTexStorage2DMultisample" type="void">
+			<param name="target" type="GLenum" />
+			<param name="samples" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="fixedsamplelocations" type="GLboolean" />
+		</function>
+		<function name="glTextureStorage2DMultisample" type="void">
+			<param name="texture" type="GLuint" />
+			<param name="samples" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="fixedsamplelocations" type="GLboolean" />
+		</function>
+	  </functions>
+	  <functions>
+	  	<documentation>glTexStorage3DMultisample, glTextureStorage3DMultisample — specify storage for a two-dimensional multisample array texture
+</documentation>
+		<function name="glTexStorage3DMultisample" type="void">
+			<param name="target" type="GLenum" />
+			<param name="samples" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="depth" type="GLsizei" />
+			<param name="fixedsamplelocations" type="GLboolean" />
+		</function>
+		<function name="glTextureStorage3DMultisample" type="void">
+			<param name="texture" type="GLuint" />
+			<param name="samples" type="GLsizei" />
+			<param name="internalformat" type="GLenum" />
+			<param name="width" type="GLsizei" />
+			<param name="height" type="GLsizei" />
+			<param name="depth" type="GLsizei" />
+			<param name="fixedsamplelocations" type="GLboolean" />
 		</function>
 	  </functions>
 	  <functions>
@@ -3288,6 +3421,15 @@ https://github.com/AlexandreFournier/gl-spec-parser
 	  		<function name="glDebugMessageCallback" type="void">
 	  			<param name="callback" type="GLDEBUGPROC" />
 	  			<param name="userParam" type="void *" />
+	  		</function>
+	  </functions>
+	  <functions>
+	  		<documentation>glCreateTextures — create texture objects
+</documentation>
+	  		<function name="glCreateTextures" type="void">
+	  			<param name="target" type="GLenum" />
+	  			<param name="n" type="GLsizei" />
+	  			<param name="textures" type="GLuint *" />
 	  		</function>
 	  </functions>
 	</library>
@@ -5449,6 +5591,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 	<const name="GL_MAX_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB" value="0x88B3"/>
 	<const name="GL_R1UI_C4UB_V3F_SUN" value="0x85C5"/>
 	<const name="GL_FRAGMENT_SHADER" value="0x8B30"/>
+	<const name="GL_COMPUTE_SHADER" value="0x91B9" />
 	<const name="GL_FLOAT_RGB32_NV" value="0x8889"/>
 	<const name="GL_UNSIGNED_INT_2_10_10_10_REV" value="0x8368"/>
 	<const name="GL_MAX_IMAGE_UNITS_EXT" value="0x8F38"/>

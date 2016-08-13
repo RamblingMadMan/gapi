@@ -47,6 +47,7 @@ namespace gapi{
 	class Vertex;
 	class Fragment;
 	class Geometry;
+	class Compute;
 	
 	namespace detail{
 		template<typename T>
@@ -68,6 +69,11 @@ namespace gapi{
 		template<>
 		struct shader_enum<Geometry>{
 			enum { value = GL_GEOMETRY_SHADER };
+		};
+
+		template<>
+		struct shader_enum<Compute>{
+			enum { value = GL_COMPUTE_SHADER };
 		};
 	}
 	
@@ -123,6 +129,11 @@ namespace gapi{
 			template<typename...>
 			friend class shader_program;
 	};
+
+	using vertex_shader = shader<Vertex>;
+	using fragment_shader = shader<Fragment>;
+	using geometry_shader = shader<Geometry>;
+	using compute_shader = shader<Compute>;
 	
 	class Seperate;
 	

@@ -3,11 +3,11 @@ OUT:=$(BUILD_DIR)/libgapi.la
 SOURCES:=context.cpp functions.cpp
 OBJECTS:=$(addprefix $(BUILD_DIR)/objs/,$(SOURCES:.cpp=.lo))
 
+HEADER_FOLDER:=$(SRC_DIR)/include/gapi
+
 CXXFLAGS:=$(shell pkg-config gl --cflags) $(CXXFLAGS)
 LDFLAGS:=$(LDFLAGS) -version-info 1:0:1
 LIBS:=$(LIBS) $(shell pkg-config gl --libs)
-
-HEADER_FOLDER:=$(SRC_DIR)/include/gapi
 
 .PHONY: all install clean
 

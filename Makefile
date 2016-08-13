@@ -34,11 +34,21 @@ export CXXFLAGS
 export LDFLAGS
 export LIBS
 
+
+DEPS:=$(SRC_DIR)/src/functions.cpp
+
+HEADERS:=functions.hpp constants.hpp known.hpp
+
+IMPL_DEPS:=\
+	$(SRC_DIR)/spec_parser/functions.cpp\
+	$(addprefix $(SRC_DIR)/include/gapi/,$(HEADERS))\
+	$(addprefix $(SRC_DIR)/spec_parser/,$(HEADERS))
+
 .PHONY: all src test install clean clean_src clean_test
 
 all: dir src
 
-src:
+src: $(DEPS)
 	$(MAKE) -C src
 
 test: src
@@ -49,10 +59,27 @@ dir: | $(BUILD_DIR)
 $(BUILD_DIR):
 	mkdir -p $@
 
+
+$(SRC_DIR)/src/functions.cpp: $(SRC_DIR)/spec_parser/%.hpp
+	cd $(SRC_DIR)/spec_parser;\
+	./replace.sh
+
+$(SRC_DIR)/spec_parser/%.hpp: $(SRC_DIR)/spec_parser/spec_parser
+	cd $(SRC_DIR)/spec_parser;\
+	./spec_parser
+
+$(SRC_DIR)/spec_parser/spec_parser:
+	cd $(SRC_DIR)/spec_parser;\
+	./compile.sh
+
+
 install:
 	$(MAKE) -C src install
 
 clean: clean_src clean_test
+	rm -rf $(DEPS)
+	rm -rf $(IMPL_DEPS)
+	rm -f $(SRC_DIR)/spec_parser/spec_parser
 
 clean_src:
 	$(MAKE) -C src clean

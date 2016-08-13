@@ -5,6 +5,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <fstream>
 
 #include <SDL2/SDL.h>
 
@@ -13,6 +14,8 @@
 #include "gapi/functions.hpp"
 
 #include "tests.hpp"
+
+#include "const_str.hpp"
 
 namespace {
 	using namespace gapi::functions;
@@ -122,8 +125,18 @@ namespace {
 	}
 }
 
-auto main() -> int
+auto main(int argc, char *argv[]) -> int
 try{
+	std::ofstream out("/dev/null");
+	auto old_cerr_rdbuf = std::cerr.rdbuf();
+
+	for(auto i = 1; i < argc; i++){
+		if(std::strncmp(argv[i], "--", 2) != 0)
+			throw std::runtime_error{"invalid command line option"};
+		else if((argv[i]+2) == "nodebug"s)
+			std::cerr.rdbuf(out.rdbuf());
+	}
+
 	std::atexit(atexit_fn);
 	
 	if(SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -164,6 +177,8 @@ try{
 	
 	if(SDL_GL_MakeCurrent(window, ctx) != 0)
 		throw std::runtime_error{SDL_GetError()};
+
+	atexit([]{ SDL_GL_MakeCurrent(nullptr, nullptr); });
 	
 	glDebugMessageCallback(gl_debug_fn, nullptr);
 
@@ -214,6 +229,8 @@ try{
 		if(i == tests.size())
 			running = false;
 	}
+
+	std::cerr.rdbuf(old_cerr_rdbuf);
 }
 catch(const std::system_error &err){
 	std::string except_type = boost::core::demangle(typeid(err).name());

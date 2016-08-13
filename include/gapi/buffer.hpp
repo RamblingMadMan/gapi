@@ -214,6 +214,14 @@ namespace gapi{
 		public:
 	};
 
+	class buffers_base{
+		public:
+			virtual ~buffers_base() = default;
+
+			virtual const buffer_handle &operator [](std::size_t) const noexcept = 0;
+			virtual buffer_handle &operator [](std::size_t) noexcept = 0;
+	};
+
 	template<std::size_t N>
 	class buffers{
 		public:

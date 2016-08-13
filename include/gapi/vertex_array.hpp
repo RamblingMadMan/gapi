@@ -46,8 +46,18 @@ namespace gapi{
 			friend class vertex_arrays;
 	};
 
+	class vertex_arrays_base{
+		public:
+			virtual ~vertex_arrays_base() = default;
+
+			virtual std::size_t size() const noexcept = 0;
+
+			virtual vertex_array_handle &operator [](std::size_t idx) noexcept = 0;
+			virtual const vertex_array_handle &operator [](std::size_t idx) const noexcept = 0;
+	};
+
 	template<std::size_t N>
-	class vertex_arrays{
+	class vertex_arrays: public vertex_arrays_base{
 		public:
 			vertex_arrays(){
 				functions::glCreateVertexArrays(N, m_arrays);
@@ -58,6 +68,8 @@ namespace gapi{
 			virtual ~vertex_arrays(){
 				functions::glDeleteVertexArrays(N, m_arrays);
 			}
+
+			std::size_t size() const noexcept{ return N; }
 
 			template<typename T = vertex_array_handle&>
 			explicit operator std::enable_if_t<N == 1, T>() noexcept{ return m_handles[0]; }

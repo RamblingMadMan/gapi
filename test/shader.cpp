@@ -21,7 +21,7 @@ bool test_shader(SDL_Window*){
 	vec4 color{1.f, 1.f, 1.f, 1.f};
 
 	auto loc = color_prog.uniform_location("color");
-	glUniform4fv(loc, 1, color);
+	glUniform4fv(loc, 1, &color[0]);
 
 	std::cout << "DONE\n";
 
