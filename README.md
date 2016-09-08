@@ -17,6 +17,25 @@ The name will be the same on all platforms, so adapt this to your own compiler/p
 
 To use any OpenGL 4.5 function simply include `gapi/functions.hpp` and call any by their identifier within the `gapi::functions` namespace.
 
+e.g.
+```c++
+#include <gapi/functions.hpp>
+#include <gapi/constants.hpp>
+
+auto main() -> int{
+	// create context and make current
+	
+	using namespace gapi;
+	using namespace gapi::functions;
+	
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClearDepthf(1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+```
+
+The functions will be loaded upon first use and should have no overhead after the initial loading.
+
 If you want to load an OpenGL function manually, it is done like so:
 
 ```c++
@@ -29,17 +48,19 @@ auto main() -> int{
 }
 ```
 
-Any functions loaded through `gl_function` that the library already knows the name of will be checked for the correct return type and parameter types. An exception will be thrown if the wrong types are specified for the template parameters.
+Any functions loaded through `gl_function` that the library already knows the name of will be checked for the correct return type and parameter types. An exception will be thrown if any wrong types are specified.
 
 You can have an OpenGL function be loaded when it is called for the first time by declaring it like so:
 
 ```c++
-gapi::gl_function<void()> func{deferred_init, "name"};
+gapi::gl_function<void()> func{deferred_init, "fn_name"};
 ```
 
 If you want to retrieve the function pointer directly, it can be retrieved like so:
 
 ```c++
+#include <gapi/gapi.hpp>
+
 auto main() -> int{
 	void(*glClear)() = gapi::detail::get_gl_fp("glClear");
 }
@@ -47,6 +68,8 @@ auto main() -> int{
 
 or through the `gl_function` interface:
 ```c++
+#include <gapi/gapi.hpp>
+
 auto main() -> int{
 	gapi::gl_function<void(GLenum)> glClear{"glClear"};
 	auto fptr = glClear.get();
@@ -60,22 +83,9 @@ To use any of the constants defined in the OpenGL API (e.g. `GL_COLOR_BUFFER_BIT
 Building
 ========
 
-The build process requires boost-system and a C++ compiler with support for C++17. More specifically, C++17 fold expressions.
+The build process requires RapidXML, libtool and a C++ compiler with support for C++14.
 
-GCC version 6.x is the best bet and most future proof for future commits, but 5.x should work.
-
-To install GCC 6 in Ubuntu 16.04 run the following commands:
-```bash
-sudo apt-add-repository ppa:ubuntu-toolchain-r/test
-sudo apt update && sudo apt install g++-6
-```
-
-Libtool is also required.
-
-To install libtool on ubuntu run the following command:
-```bash
-sudo apt install libtool-bin
-```
+The file `debian-prereq.sh` should install all dependencies on a debian-based system.
 
 To build simply run `make` from the root source directory.
 

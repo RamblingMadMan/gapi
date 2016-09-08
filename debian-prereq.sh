@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo apt install librapidxml-dev libgl1-mesa-dev
+sudo apt install librapidxml-dev libgl1-mesa-dev libtool-bin
