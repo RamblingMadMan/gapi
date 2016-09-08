@@ -70,7 +70,7 @@ sudo apt-add-repository ppa:ubuntu-toolchain-r/test
 sudo apt update && sudo apt install g++-6
 ```
 
-For linking libtool is also required.
+Libtool is also required.
 
 To install libtool on ubuntu run the following command:
 ```bash

@@ -17,8 +17,6 @@
 
 #include "tests.hpp"
 
-#include "const_str.hpp"
-
 namespace {
 	using namespace gapi::functions;
 	using namespace gapi;
@@ -137,9 +135,9 @@ try{
 	for(auto i = 1; i < argc; i++){
 		if(std::strncmp(argv[i], "--", 2) != 0)
 			throw std::runtime_error{"invalid command line option"};
-		else if((argv[i]+2) == "--nodebug"s)
+		else if((argv[i]+2) == "nodebug"s)
 			std::cerr.rdbuf(out.rdbuf());
-		else if((argv[i]+2) == "--pausetime"s){
+		else if((argv[i]+2) == "pausetime"s){
 			if(argc < (i+1)){
 				std::cout << "no time passed after pausetime flag\n";
 				break;

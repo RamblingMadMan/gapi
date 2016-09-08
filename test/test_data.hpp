@@ -80,7 +80,7 @@ constexpr shader_source texture_fragment_src =
 	GLSL_LINE( GLSL_LAYOUT(location = 0) GLSL_OUT GLSL_VEC4 GLSL(screen) )
 
 	GLSL_FN(void, main,(),
-		GLSL_LINE( GLSL(screen = texture(tex, uv_f) * vec4(vert_f, 1.0)) )
+		GLSL_LINE( GLSL(screen = texture(tex, uv_f) + vec4(vert_f, 1.0)) )
 	)
 ;
 

@@ -4,10 +4,28 @@ BUILD_DIR?=$(PWD)/build
 
 DESTDIR?=/usr/local
 
-CXX:=g++-6
-CXXFLAGS?=-std=c++1z -fconcepts -msse3 -I$(SRC_DIR)/include
+CXX:=g++
+CXXFLAGS?=-std=c++1z -msse3 -I$(SRC_DIR)/include
 LDFLAGS?=-rpath $(DESTDIR)/lib -L$(BUILD_DIR)
 LIBS?=
+
+USE_EGL?=false
+
+ifneq ($(USE_EGL),false)
+ifneq ($(USE_EGL),true)
+$(error invalid value for USE_EGL)
+else
+CXXFLAGS:=$(CXXFLAGS) -DGAPI_EGL
+endif
+endif
+
+GL_LIB:=
+
+ifeq ($(OS),Windows_NT)
+GL_LIB:=-lopengl32
+else
+
+endif
 
 OPTFLAGS_DEBUG?=-Og -ggdb
 OPTFLAGS_RELEASE?=-Ofast -fexpensive-optimizations -DNDEBUG
@@ -28,6 +46,7 @@ endif
 
 export SRC_DIR
 export BUILD_DIR
+export USE_EGL
 export DESTDIR
 export CXX
 export CXXFLAGS
@@ -44,11 +63,13 @@ IMPL_DEPS:=\
 	$(addprefix $(SRC_DIR)/include/gapi/,$(HEADERS))\
 	$(addprefix $(SRC_DIR)/spec_parser/,$(HEADERS))
 
-.PHONY: all src test install clean clean_src clean_test
+.PHONY: all headers src test install clean clean_src clean_test
 
-all: dir src
+all: dir headers src
 
-src: $(DEPS)
+headers: $(DEPS)
+
+src: headers
 	$(MAKE) -C src
 
 test: src

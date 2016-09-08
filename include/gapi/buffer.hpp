@@ -1,6 +1,7 @@
 #ifndef GAPI_BUFFER_HPP
 #define GAPI_BUFFER_HPP 1
 
+#include <system_error>
 #include <cmath>
 #include <limits>
 #include <array>
@@ -97,10 +98,14 @@ namespace gapi{
 				#endif
 
 				functions::glNamedBufferSubData(handle, off, size, data);
-				if(auto err = functions::glGetError()){
+				
+				#ifndef NDEBUG
+				auto err = functions::glGetError();
+				if(err != GL_NO_ERROR){
 					buffer_category buffer_category_inst;
 					throw std::system_error{static_cast<int>(err), buffer_category_inst};
 				}
+				#endif
 
 				return to_copy;
 			}
@@ -117,11 +122,13 @@ namespace gapi{
 					throw std::logic_error{"offset too large for buffer requested"};
 				#endif
 				
-				functions::glGetNamedBufferSubData(handle, off, to_copy, buff);
-				if(auto err = functions::glGetError()){
+				#ifndef NDEBUG
+				auto err = functions::glGetError();
+				if(err != GL_NO_ERROR){
 					buffer_category buffer_category_inst;
 					throw std::system_error{static_cast<int>(err), buffer_category_inst};
 				}
+				#endif
 
 				return to_copy;
 			}

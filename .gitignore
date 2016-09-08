@@ -8,3 +8,15 @@ spec_parser/basic_types.hpp
 spec_parser/constants.hpp
 spec_parser/spec_parser*
 gapi_*
+
+gapi.kdev4
+.directory
+
+*.o
+*.lo
+*.la
+*.lai
+*.so
+*.dll
+*.a
+*.obj

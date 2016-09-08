@@ -37,10 +37,12 @@ namespace gapi{
 
 			template<std::size_t ... Indices, typename T>
 			void test_args_impl(std::index_sequence<Indices...>, const std::string &name, T &&vec){
-				([this](auto &&vec, auto idx, auto type){
+				auto fn = [this](auto &&vec, auto idx, auto type){
 					if(std::string(vec[idx].second) != type)
 						throw gapi_error("argument "s + std::to_string(idx) + " for " + this->fn_name + " not of expected type " + boost::core::demangle(vec[idx].second));
-				}(std::forward<T>(vec), Indices, typeid(Args).name()), ...);
+				};
+				using dummy = int[];
+				(void)dummy{0, (fn(std::forward<T>(vec), Indices, typeid(Args).name()), 0)..., 0};
 			}
 
 			template<typename T>

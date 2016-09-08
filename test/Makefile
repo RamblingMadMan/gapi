@@ -26,16 +26,16 @@ $(BUILD_DIR)/test_objs:
 	mkdir -p $@
 
 
-$(OUT): $(OBJECTS)
+$(OUT): test_data.hpp inline_shader.hpp $(OBJECTS)
 	libtool --mode=link --tag=CXX $(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 $(BUILD_DIR)/test_objs/%.lo: %.cpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 	
-$(BUILD_DIR)/test_objs/shader.lo: shader.cpp inline_shader.hpp
+$(BUILD_DIR)/test_objs/shader.lo: shader.cpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 	
-$(BUILD_DIR)/test_objs/buffer.lo: buffer.cpp test_data.hpp
+$(BUILD_DIR)/test_objs/buffer.lo: buffer.cpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
