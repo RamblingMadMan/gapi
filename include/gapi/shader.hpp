@@ -209,24 +209,30 @@ namespace gapi{
 			template<typename ShaderType, typename ... ShaderTypes>
 			shader_program(const shader<ShaderType> &shad, const shader<ShaderTypes> &... shaders)
 				: shader_program(){
+				using dummy = int[];
+				
 				attach(shad);
-				(attach(shaders), ...);
+				dummy{0, (attach(shaders), 0)...};
+				
 				link();
 			}
 			
 			template<typename ShaderType, typename ... ShaderTypes>
 			shader_program(deferred_link_t, const shader<ShaderType> &shad, const shader<ShaderTypes> &... shaders)
-			: shader_program(){
+				: shader_program(){
+				using dummy = int[];
+			
 				attach(shad);
-				(attach(shaders), ...);
+				dummy{0, (attach(shaders), 0)...};
 			}
 			
 			virtual ~shader_program(){ functions::glDeleteProgram(handle); }
 			
 			template<typename ShaderType, typename ... ShaderTypes>
 			void attach(const shader<ShaderType> &shad, const shader<ShaderTypes> &... shaders){
+				using dummy = int[];
 				functions::glAttachShader(handle, shad.handle);
-				(functions::glAttachShader(handle, shaders.handle), ...);
+				dummy{0, (functions::glAttachShader(handle, shaders.handle), 0)...};
 			}
 			
 			void link(){
