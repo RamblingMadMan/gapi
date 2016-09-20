@@ -1,10 +1,11 @@
 #ifndef GAPI_BUFFER_HPP
 #define GAPI_BUFFER_HPP 1
 
-#include <system_error>
 #include <cmath>
 #include <limits>
 #include <array>
+#include <system_error>
+#include <type_traits>
 
 #include "object.hpp"
 #include "constants.hpp"
@@ -13,7 +14,7 @@
 namespace gapi{
 	class buffer_mapping_category: public std::error_category{
 		public:
-			constexpr buffer_mapping_category(){}
+			buffer_mapping_category(){}
 
 			virtual const char *name() const noexcept{ return "opengl|gapi-buffer-mapping"; }
 
@@ -35,7 +36,7 @@ namespace gapi{
 
 	class buffer_category: public std::error_category{
 		public:
-			constexpr buffer_category(){}
+			buffer_category(){}
 
 			virtual const char *name() const noexcept{ return "opengl|gapi-buffer"; }
 
@@ -213,24 +214,21 @@ namespace gapi{
 			
 	inline buffer_mapping<Read> buffer_handle::map() const noexcept{ return {*this}; }
 	
-	namespace detail{
-	}
-	
-	template<std::size_t N>
-	class mutable_buffers{
-		public:
-	};
-
-	class buffers_base{
+	class buffers_base: public object{
 		public:
 			virtual ~buffers_base() = default;
 
 			virtual const buffer_handle &operator [](std::size_t) const noexcept = 0;
 			virtual buffer_handle &operator [](std::size_t) noexcept = 0;
 	};
+	
+	template<std::size_t N>
+	class mutable_buffers{
+		public:
+	};
 
 	template<std::size_t N>
-	class buffers{
+	class buffers: public buffers_base{
 		public:
 			static_assert((N > 0) && (N < std::numeric_limits<std::int32_t>::max()));
 			
