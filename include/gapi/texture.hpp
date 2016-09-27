@@ -238,8 +238,9 @@ namespace gapi{
 	template<std::size_t N>
 	class textures: public textures_base{
 		public:
+			using this_type = textures<N>;
+		
 			textures(const std::array<texture_arg, N> &texs){
-
 				for(auto i = 0ul; i < N; i++){
 					if(texs[i].multisample){
 						switch(texs[i].dims.size()){
@@ -313,10 +314,31 @@ namespace gapi{
 				}
 			}
 			
+			textures(this_type &&other){
+				std::copy(other.handles, other.handles + N, handles);
+				std::copy(other.usr_handles, other.usr_handles + N, usr_handles);
+				
+				std::fill(other.handles, other.handles + N, 0);
+				std::fill(other.usr_handles, other.usr_handles + N, nullptr);
+			}
+			
 			virtual ~textures(){
 				functions::glDeleteTextures(N, handles);
 				for(auto *&p : usr_handles)
 					delete p;
+			}
+			
+			this_type &operator =(this_type &&other){
+				GLuint old_handles[N];
+				std::copy(handles, handles + N, old_handles);
+				
+				std::copy(other.handles, other.handles + N, handles);
+				std::copy(other.usr_handles, other.usr_handles + N, usr_handles);
+				
+				std::copy(other.handles, other.handles + N, old_handles);
+				std::fill(other.usr_handles, other.usr_handles + N, nullptr);
+				
+				return *this;
 			}
 			
 			template<typename T = const texture_handle&>
