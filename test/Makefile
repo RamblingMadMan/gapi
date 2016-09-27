@@ -9,7 +9,8 @@ SOURCES:=\
 	buffer.cpp\
 	shader.cpp\
 	shader_buffer.cpp\
-	shader_texture.cpp
+	shader_texture.cpp\
+	framebuffer.cpp
 	
 OBJECTS:=$(addprefix $(BUILD_DIR)/test_objs/,$(SOURCES:.cpp=.lo))
 
@@ -26,16 +27,16 @@ $(BUILD_DIR)/test_objs:
 	mkdir -p $@
 
 
-$(OUT): test_data.hpp inline_shader.hpp $(OBJECTS)
+$(OUT): $(OBJECTS)
 	libtool --mode=link --tag=CXX $(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 $(BUILD_DIR)/test_objs/%.lo: %.cpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 	
-$(BUILD_DIR)/test_objs/shader.lo: shader.cpp
+$(BUILD_DIR)/test_objs/shader.lo: shader.cpp inline_shader.hpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 	
-$(BUILD_DIR)/test_objs/buffer.lo: buffer.cpp
+$(BUILD_DIR)/test_objs/buffer.lo: buffer.cpp test_data.hpp
 	libtool --mode=compile --tag=CXX $(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:

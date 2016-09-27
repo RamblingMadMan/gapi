@@ -13,7 +13,7 @@
 namespace gapi{
 	class framebuffer_draw_buffers_category: public std::error_category{
 		public:
-			constexpr framebuffer_category() = default;
+			framebuffer_draw_buffers_category() = default;
 
 			virtual const char *name() const noexcept{ return "opengl|gapi-framebuffer-drawbuffers"; }
 
@@ -41,11 +41,11 @@ namespace gapi{
 	class framebuffer_handle{
 		public:
 			void attach_texture(GLenum attachment, const texture_handle &tex, GLint level = 0){
-				glNamedFramebufferTexture(handle, attachment, get_handle(tex), level);
+				functions::glNamedFramebufferTexture(handle, attachment, get_handle(tex), level);
 			}
 
 			void use(framebuffer_type type) noexcept{
-				glBindFramebuffer(
+				functions::glBindFramebuffer(
 					static_cast<GLenum>(type),
 					handle
 				);
@@ -53,11 +53,11 @@ namespace gapi{
 
 			void draw_buffer(){}
 
-			template<typename Head, typename ... Tail>
-			void draw_buffers(Head &&head, Tail &&... tail){
-				std::vector<GLenum> bufs{std::forward<Head>(head), std::forward<Tail>(tail)...};
-				glNamedFramebufferDrawBuffers(handle, bufs.size(), bufs.data());
-				GLenum err = glGetError();
+			template<typename ... Tail>
+			void draw_buffers(GLenum head, Tail &&... tail){
+				std::vector<GLenum> bufs{head, std::forward<Tail>(tail)...};
+				functions::glNamedFramebufferDrawBuffers(handle, bufs.size(), bufs.data());
+				GLenum err = functions::glGetError();
 				if(err != GL_NO_ERROR){
 					framebuffer_draw_buffers_category cat;
 					throw std::system_error{static_cast<int>(err), cat};
@@ -65,9 +65,10 @@ namespace gapi{
 			}
 
 		protected:
-			framebuffer_handle(GLuint handle_): handle{handle_}{}
-
 			GLuint handle;
+			
+			template<std::size_t>
+			friend class framebuffers;
 	};
 
 	class framebuffers_base{
@@ -82,11 +83,14 @@ namespace gapi{
 	class framebuffers: public framebuffers_base{
 		public:
 			framebuffers(){
-				functions::glCreateFramebuffers(N, &handles);
+				functions::glCreateFramebuffers(N, handles);
+				
+				for(auto i = 0ul; i < N; i++)
+					usr_handles[i].handle = handles[i];
 			}
 
 			~framebuffers(){
-				functions::glDeleteFramebuffers(N, &handles);
+				functions::glDeleteFramebuffers(N, handles);
 			}
 
 			std::size_t size() const noexcept{ return N; }
@@ -108,7 +112,7 @@ namespace gapi{
 	using framebuffer = framebuffers<1>;
 
 	template<>
-	class frambuffers<0>;
+	class framebuffers<0>;
 }
 
 #endif // GAPI_FRAMEBUFFER_HPP

@@ -43,7 +43,7 @@ bool test_buffer(SDL_Window*){
 	vao.attrib_binding(0, 0);
 	vao.attrib_binding(1, 1);
 
-	std::cout << "DONE\n";
+	std::cout << "DONE\n" << std::flush;
 
 	return false;
 }

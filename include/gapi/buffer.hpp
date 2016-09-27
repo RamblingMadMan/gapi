@@ -123,6 +123,8 @@ namespace gapi{
 					throw std::logic_error{"offset too large for buffer requested"};
 				#endif
 				
+				functions::glGetNamedBufferSubData(handle, off, to_copy, buff);
+				
 				#ifndef NDEBUG
 				auto err = functions::glGetError();
 				if(err != GL_NO_ERROR){
@@ -230,7 +232,7 @@ namespace gapi{
 	template<std::size_t N>
 	class buffers: public buffers_base{
 		public:
-			static_assert((N > 0) && (N < std::numeric_limits<std::int32_t>::max()));
+			static_assert((N > 0) && (N < std::numeric_limits<std::int32_t>::max()), "");
 			
 			buffers(const std::array<std::size_t, N> &sizes){
 				functions::glCreateBuffers(N, m_buffers);

@@ -7,6 +7,7 @@ bool test_buffer(SDL_Window *w);
 bool test_shader(SDL_Window *w);
 bool test_shader_buffer(SDL_Window *w);
 bool test_shader_texture(SDL_Window *w);
+bool test_framebuffer(SDL_Window *w);
 
 #endif // GAPI_TESTS_HPP
 

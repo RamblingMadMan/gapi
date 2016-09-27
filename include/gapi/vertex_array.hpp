@@ -46,7 +46,7 @@ namespace gapi{
 			friend class vertex_arrays;
 	};
 
-	class vertex_arrays_base{
+	class vertex_arrays_base: public object{
 		public:
 			virtual ~vertex_arrays_base() = default;
 
@@ -74,8 +74,8 @@ namespace gapi{
 			template<typename T = vertex_array_handle&>
 			explicit operator std::enable_if_t<N == 1, T>() noexcept{ return m_handles[0]; }
 
-			template<typename T = const vertex_array_handle&>
-			explicit operator std::enable_if_t<N == 1, T>() const noexcept{ return m_handles[0]; }
+			template<typename T = vertex_array_handle&>
+			explicit operator std::enable_if_t<N == 1, const T>() const noexcept{ return m_handles[0]; }
 
 			vertex_array_handle &operator [](std::size_t idx) noexcept{ return m_handles[idx]; }
 			const vertex_array_handle &operator [](std::size_t idx) const noexcept{ return m_handles[idx]; }

@@ -52,7 +52,7 @@ bool test_shader_buffer(SDL_Window *w){
 	
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-	std::cout << "DONE\n";
+	std::cout << "DONE\n" << std::flush;
 
 	return true;
 }

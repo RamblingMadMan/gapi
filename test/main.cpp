@@ -8,6 +8,7 @@
 #include <chrono>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include <SDL2/SDL.h>
 
@@ -41,19 +42,27 @@ namespace {
 		const void*
 	){
 		switch(severity){
-			case GL_DEBUG_SEVERITY_HIGH:
+			case GL_DEBUG_SEVERITY_HIGH:{
 				std::cerr << "[high severity] ";
+				break;
+			}
 
-			case GL_DEBUG_SEVERITY_MEDIUM:
+			case GL_DEBUG_SEVERITY_MEDIUM:{
 				std::cerr << "[medium severity] ";
-
-			case GL_DEBUG_SEVERITY_LOW:
+				break;
+			}
+			
+			case GL_DEBUG_SEVERITY_LOW:{
 				std::cerr << "[low severity] ";
-
+				break;
+			}
+				
+			[[fallthrough]]
 			case GL_DEBUG_SEVERITY_NOTIFICATION:
-			default:
+			default:{
 				std::cerr << "[notification] ";
 				break;
+			}
 		}
 
 		switch(type){
@@ -127,16 +136,21 @@ namespace {
 
 auto main(int argc, char *argv[]) -> int
 try{
-	std::ofstream out("/dev/null");
+	std::ofstream log_file("./log.txt");
+	std::stringstream null_out;
+	
 	auto old_cerr_rdbuf = std::cerr.rdbuf();
-
-	int timems = 1000;
+	
+	if(log_file)
+		std::cerr.rdbuf(log_file.rdbuf());
+		
+	int timems = 1500;
 
 	for(auto i = 1; i < argc; i++){
 		if(std::strncmp(argv[i], "--", 2) != 0)
 			throw std::runtime_error{"invalid command line option"};
 		else if((argv[i]+2) == "nodebug"s)
-			std::cerr.rdbuf(out.rdbuf());
+			std::cerr.rdbuf(null_out.rdbuf());
 		else if((argv[i]+2) == "pausetime"s){
 			if(argc < (i+1)){
 				std::cout << "no time passed after pausetime flag\n";
@@ -144,16 +158,16 @@ try{
 			}
 
 			++i;
-			strnlen(argv[i], 4);
+			auto len = strnlen(argv[i], 4);
 
 			char timestr[5]{0};
-			std::strncpy(timestr, argv[i], 4);
+			std::strncpy(timestr, argv[i], len);
 
 			for(auto n = 0; n < 4; n++)
 				if(!std::isdigit(timestr[n]))
 					throw std::runtime_error{"non-digit character in time string"};
 
-			int timems = std::atoi(timestr);
+			timems = std::atoi(timestr);
 		}
 	}
 
@@ -214,6 +228,7 @@ try{
 	tests.push_back(test_shader);
 	tests.push_back(test_shader_buffer);
 	tests.push_back(test_shader_texture);
+	tests.push_back(test_framebuffer);
 	
 	bool running = true;
 	while(running){

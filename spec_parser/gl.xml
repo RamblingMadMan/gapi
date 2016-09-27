@@ -779,11 +779,16 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glDrawBuffers - Specifies a list of color buffers to be drawn into
+		<documentation>glDrawBuffers, glNamedFramebufferDrawBuffers — Specifies a list of color buffers to be drawn into
 </documentation>
 		<function name="glDrawBuffers" type="void">
 		  <param name="n" type="GLsizei"/>
-		  <param name="bufs" type="GLenum *"/>
+		  <param name="bufs" type="const GLenum *"/>
+		</function>
+		<function name="glNamedFramebufferDrawBuffers" type="void">
+			<param name="framebuffer" type="GLuint" />
+			<param name="n" type="GLsizei" />
+			<param name="bufs" type="const GLenum *" />
 		</function>
 	  </functions>
 	  <functions>
@@ -959,7 +964,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		</function>
 	  </functions>
 	  <functions>
-		<documentation>glFramebufferTexture - attach a level of a texture object as a logical buffer to the currently bound framebuffer object
+		<documentation>glFramebufferTexture — attach a level of a texture object as a logical buffer of a framebuffer object
 </documentation>
 		<function name="glFramebufferTexture" type="void">
 		  <param name="target" type="GLenum"/>
@@ -988,6 +993,12 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="texture" type="GLuint"/>
 		  <param name="level" type="GLint"/>
 		  <param name="layer" type="GLint"/>
+		</function>
+		<function name="glNamedFramebufferTexture" type="void">
+			<param name="framebuffer" type="GLuint" />
+			<param name="attachment" type="GLenum" />
+			<param name="texture" type="GLuint" />
+			<param name="level" type="GLint" />
 		</function>
 	  </functions>
 	  <functions>
@@ -1023,6 +1034,13 @@ https://github.com/AlexandreFournier/gl-spec-parser
 			<param name="buffers" type="GLuint *" />
 		</function>
 	  </functions>
+	<functions>
+		<documentation>glCreateFramebuffers — create framebuffer objects</documentation>
+		<function name="glCreateFramebuffers" type="void">
+			<param name="n" type="GLsizei" />
+			<param name="ids" type="GLuint *" />
+		</function>
+	</functions>
 	  <functions>
 		<documentation>glGenFramebuffers - generate framebuffer object names
 </documentation>
