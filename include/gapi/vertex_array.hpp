@@ -44,6 +44,9 @@ namespace gapi{
 			
 			template<std::size_t>
 			friend class vertex_arrays;
+			
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 
 	class vertex_arrays_base: public object{
