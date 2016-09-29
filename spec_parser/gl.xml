@@ -1881,8 +1881,8 @@ https://github.com/AlexandreFournier/gl-spec-parser
 </documentation>
 		<function name="glMultiDrawArrays" type="void">
 		  <param name="mode" type="GLenum"/>
-		  <param name="first" type="GLint *"/>
-		  <param name="count" type="GLsizei *"/>
+		  <param name="first" type="const GLint *"/>
+		  <param name="count" type="const GLsizei *"/>
 		  <param name="primcount" type="GLsizei"/>
 		</function>
 	  </functions>
@@ -1891,22 +1891,33 @@ https://github.com/AlexandreFournier/gl-spec-parser
 </documentation>
 		<function name="glMultiDrawElements" type="void">
 		  <param name="mode" type="GLenum"/>
-		  <param name="count" type="GLsizei *"/>
+		  <param name="count" type="const GLsizei *"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid **"/>
+		  <param name="indices" type="const GLvoid * const *"/>
 		  <param name="primcount" type="GLsizei"/>
 		</function>
+	  </functions>
+	  <functions>
+		  <documentation>glMultiDrawElementsIndirect - render indexed primitives from array data, taking parameters from memory elements
+		  </documentation>
+		  <function name="glMultiDrawElementsIndirect" type="void">
+			  <param name="mode" type="GLenum" />
+			  <param name="type" type="GLenum" />
+			  <param name="indirect" type="const void *" />
+			  <param name="drawcount" type="GLsizei" />
+			  <param name="stride" type="GLsizei" />
+		  </function>
 	  </functions>
 	  <functions>
 		<documentation>glMultiDrawElementsBaseVertex - render multiple sets of primitives by specifying indices of array data elements and an index to apply to each index
 </documentation>
 		<function name="glMultiDrawElementsBaseVertex" type="void">
 		  <param name="mode" type="GLenum"/>
-		  <param name="count" type="GLsizei *"/>
+		  <param name="count" type="const GLsizei *"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid **"/>
+		  <param name="indices" type="const GLvoid * const *"/>
 		  <param name="primcount" type="GLsizei"/>
-		  <param name="basevertex" type="GLint *"/>
+		  <param name="basevertex" type="const GLint *"/>
 		</function>
 	  </functions>
 	  <functions>
