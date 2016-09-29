@@ -758,7 +758,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 </documentation>
 		<function name="glDrawArraysIndirect" type="void">
 		  <param name="mode" type="GLenum"/>
-		  <param name="indirect" type="void *"/>
+		  <param name="indirect" type="const void *"/>
 		</function>
 	  </functions>
 	  <functions>
@@ -798,7 +798,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="mode" type="GLenum"/>
 		  <param name="count" type="GLsizei"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid *"/>
+		  <param name="indices" type="const GLvoid *"/>
 		</function>
 	  </functions>
 	  <functions>
@@ -818,7 +818,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		<function name="glDrawElementsIndirect" type="void">
 		  <param name="mode" type="GLenum"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indirect" type="void *"/>
+		  <param name="indirect" type="const void *"/>
 		</function>
 	  </functions>
 	  <functions>
@@ -828,7 +828,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="mode" type="GLenum"/>
 		  <param name="count" type="GLsizei"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="void *"/>
+		  <param name="indices" type="const void *"/>
 		  <param name="primcount" type="GLsizei"/>
 		</function>
 	  </functions>
@@ -839,7 +839,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="mode" type="GLenum"/>
 		  <param name="count" type="GLsizei"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid *"/>
+		  <param name="indices" type="const GLvoid *"/>
 		  <param name="primcount" type="GLsizei"/>
 		  <param name="basevertex" type="GLint"/>
 		</function>
@@ -853,7 +853,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="end" type="GLuint"/>
 		  <param name="count" type="GLsizei"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid *"/>
+		  <param name="indices" type="const GLvoid *"/>
 		</function>
 	  </functions>
 	  <functions>
@@ -865,7 +865,7 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="end" type="GLuint"/>
 		  <param name="count" type="GLsizei"/>
 		  <param name="type" type="GLenum"/>
-		  <param name="indices" type="GLvoid *"/>
+		  <param name="indices" type="const GLvoid *"/>
 		  <param name="basevertex" type="GLint"/>
 		</function>
 	  </functions>

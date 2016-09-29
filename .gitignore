@@ -7,6 +7,10 @@ spec_parser/functions.cpp
 spec_parser/basic_types.hpp
 spec_parser/constants.hpp
 spec_parser/spec_parser*
+include/gapi/constants.hpp
+include/gapi/functions.hpp
+include/gapi/known.hpp
+src/functions.cpp
 gapi_*
 
 gapi.kdev4
