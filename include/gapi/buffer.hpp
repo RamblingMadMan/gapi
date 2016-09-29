@@ -142,6 +142,9 @@ namespace gapi{
 
 			template<std::size_t>
 			friend class buffers;
+			
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 	
 	template<>
