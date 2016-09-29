@@ -124,6 +124,8 @@ namespace gapi{
 					throw std::system_error{GL_FALSE, shader_category_inst, str};
 				}
 			}
+			
+			bool operator ==(const shader<ShaderType> &rhs) const noexcept{ return this == &rhs; }
 		
 		protected:
 			template<typename...>
@@ -135,13 +137,13 @@ namespace gapi{
 	using geometry_shader = shader<Geometry>;
 	using compute_shader = shader<Compute>;
 	
-	class Seperate;
+	class Separate;
 	
 	template<typename...>
 	class shader_program;
 	
 	template<typename ShaderType>
-	class shader_program<Seperate, ShaderType>: public object{
+	class shader_program<Separate, ShaderType>: public object{
 		public:
 			shader_program(const std::string &str){
 				create(str);
@@ -181,6 +183,8 @@ namespace gapi{
 			GLint uniform_location(const std::string &name){
 				return functions::glGetUniformLocation(handle, name.c_str());
 			}
+			
+			bool operator ==(const shader_program<Separate, ShaderType> &rhs) const noexcept{ return this == &rhs; }
 
 		protected:
 			bool created = false;
@@ -212,7 +216,7 @@ namespace gapi{
 				using dummy = int[];
 				
 				attach(shad);
-				dummy{0, (attach(shaders), 0)...};
+				(void)dummy{0, (attach(shaders), 0)...};
 				
 				link();
 			}
@@ -254,6 +258,10 @@ namespace gapi{
 
 			GLint uniform_location(const std::string &name){
 				return functions::glGetUniformLocation(handle, name.c_str());
+			}
+			
+			bool operator ==(const shader_program<> &rhs) const noexcept{
+				return this == &rhs;
 			}
 	};
 }
