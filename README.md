@@ -1,7 +1,7 @@
 GAPI
 ====
 
-Modern C++17 OpenGL 4.5 function loader and wrapper library
+Modern C++14 OpenGL 4.5 function loader and wrapper library
 
 About
 =====
