@@ -83,67 +83,15 @@ To use any of the constants defined in the OpenGL API (e.g. `GL_COLOR_BUFFER_BIT
 Building
 ========
 
-The build process requires RapidXML, libtool and a C++ compiler with support for C++14.
+The build process requires CMake, RapidXML and a C++ compiler with support for C++14.
 
 The file `debian-prereq.sh` should install all dependencies on a debian-based system.
 
-To build simply run `make` from the root source directory.
+To build, invoke cmake how you normally would.
 
-The library will be built into `BUILD_DIR`, then within that directory either debug or release.
-
-possible flags that can be set at build time are
-
-
-##`DESTDIR`
-The directory the library will be installed to upon `make install`
-
-The name of `DESTDIR` is chosen for easier packaging with snapcraft
-
-default: `/usr/local`
-
-##`BUILD_DIR`
-The directory that the library will be built into
-
-default: `$(SRC_DIR)/build`
-
-##`BUILD_TYPE`
-The type of build to be made
-
-default: `debug`
-
-##`OPTFLAGS_DEBUG`
-Compiler flags for debug builds
-
-default: `-Og -ggdb`
-
-##`OPTFLAGS_RELEASE`
-Compiler flags for release builds
-
-default: `-Ofast -fexpensive-optimizations -DNDEBUG`
-
-##`CXXFLAGS`
-Generic compiler flags
-
-NOTE these flags should rarely be set
-
-default: `-std=c++1z -msse3`
-
-##`LDFLAGS`
-libtool linker flags
-
-default: `-rpath $(DESTDIR)`
-
-##`LIBS`
-Libraries to be passed to the linker
-
-default: `[EMPTY]`
-
-Installation
-============
-
-To install run the following in the source dir:
+Here's an example of a release build
 ```bash
-make install
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j8
 ```
-
-If you don't specify `DESTDIR` to something custom then you will need to run `make install` with superuser privilages.

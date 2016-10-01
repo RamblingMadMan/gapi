@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo apt install librapidxml-dev libgl1-mesa-dev libtool-bin
+sudo apt install g++ librapidxml-dev libgl1-mesa-dev cmake
