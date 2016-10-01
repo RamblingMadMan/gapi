@@ -130,6 +130,9 @@ namespace gapi{
 		protected:
 			template<typename...>
 			friend class shader_program;
+			
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 
 	using vertex_shader = shader<Vertex>;
@@ -201,6 +204,9 @@ namespace gapi{
 					throw program_error{str};
 				}
 			}
+			
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 	
 	class deferred_link_t{} static deferred_link;
@@ -263,6 +269,10 @@ namespace gapi{
 			bool operator ==(const shader_program<> &rhs) const noexcept{
 				return this == &rhs;
 			}
+			
+		protected:
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 }
 
