@@ -69,6 +69,9 @@ namespace gapi{
 			
 			template<std::size_t>
 			friend class framebuffers;
+			
+			template<typename T>
+			friend GLuint get_handle(const T&);
 	};
 
 	class framebuffers_base{
