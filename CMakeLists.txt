@@ -6,4 +6,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(src)
-add_subdirectory(test)
+
+if(COMPILE_TEST)
+	add_subdirectory(test)
+endif(COMPILE_TEST)
