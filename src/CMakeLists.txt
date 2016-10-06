@@ -1,10 +1,16 @@
 find_package(OpenGL)
 
+if(UNIX)
+set(MOVE_SCRIPT ./move.sh)
+elseif(WIN32)
+set(MOVE_SCRIPT move.bat)
+endif()
+
 add_custom_command(
-	OUTPUT ${CMAKE_SOURCE_DIR}/src/functions.cpp
-	COMMAND ${CMAKE_SOURCE_DIR}/spec_parser/compile.sh
-	COMMAND ${CMAKE_SOURCE_DIR}/spec_parser/replace.sh
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/spec_parser
+	OUTPUT ${CMAKE_CURRENT_LIST_DIR}/functions.cpp
+	COMMAND spec_parser
+	COMMAND ${MOVE_SCRIPT}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../spec_parser
 )
 
 add_library(
@@ -13,5 +19,4 @@ add_library(
 	functions.cpp
 )
 
-target_include_directories(gapi PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(gapi ${OPENGL_LIBRARIES})
