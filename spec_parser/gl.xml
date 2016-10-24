@@ -760,37 +760,44 @@ https://github.com/AlexandreFournier/gl-spec-parser
 		  <param name="mode" type="GLenum"/>
 		  <param name="indirect" type="const void *"/>
 		</function>
-	  </functions>
-	  <functions>
-		<documentation>glDrawArraysInstanced - draw multiple instances of a range of elements
-</documentation>
-		<function name="glDrawArraysInstanced" type="void">
-		  <param name="mode" type="GLenum"/>
-		  <param name="first" type="GLint"/>
-		  <param name="count" type="GLsizei"/>
-		  <param name="primcount" type="GLsizei"/>
-		</function>
-	  </functions>
-	  <functions>
-		<documentation>glDrawBuffer - specify which color buffers are to be drawn into
-</documentation>
-		<function name="glDrawBuffer" type="void">
-		  <param name="mode" type="GLenum"/>
-		</function>
-	  </functions>
-	  <functions>
-		<documentation>glDrawBuffers, glNamedFramebufferDrawBuffers — Specifies a list of color buffers to be drawn into
-</documentation>
-		<function name="glDrawBuffers" type="void">
-		  <param name="n" type="GLsizei"/>
-		  <param name="bufs" type="const GLenum *"/>
-		</function>
-		<function name="glNamedFramebufferDrawBuffers" type="void">
-			<param name="framebuffer" type="GLuint" />
-			<param name="n" type="GLsizei" />
-			<param name="bufs" type="const GLenum *" />
-		</function>
-	  </functions>
+		</functions>
+		<functions>
+			<documentation>
+				glDrawArraysInstanced - draw multiple instances of a range of elements
+			</documentation>
+			<function name="glDrawArraysInstanced" type="void">
+				<param name="mode" type="GLenum"/>
+				<param name="first" type="GLint"/>
+				<param name="count" type="GLsizei"/>
+				<param name="primcount" type="GLsizei"/>
+			</function>
+		</functions>
+		<functions>
+			<documentation>
+				glDrawBuffer, glNamedFramebufferDrawBuffer — specify which color buffers are to be drawn into
+			</documentation>
+			<function name="glDrawBuffer" type="void">
+				<param name="buf" type="GLenum" />
+			</function>
+			<function name="glNamedFramebufferDrawBuffer" type="void">
+				<param name="framebuffer" type="GLuint" />
+				<param name="buf" type="GLenum" />
+			</function>
+		</functions>
+		<functions>
+			<documentation>
+				glDrawBuffers, glNamedFramebufferDrawBuffers — Specifies a list of color buffers to be drawn into
+			</documentation>
+			<function name="glDrawBuffers" type="void">
+				<param name="n" type="GLsizei"/>
+				<param name="bufs" type="const GLenum *"/>
+			</function>
+			<function name="glNamedFramebufferDrawBuffers" type="void">
+				<param name="framebuffer" type="GLuint" />
+				<param name="n" type="GLsizei" />
+				<param name="bufs" type="const GLenum *" />
+			</function>
+		</functions>
 	  <functions>
 		<documentation>glDrawElements - render primitives from array data
 </documentation>

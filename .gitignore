@@ -1,5 +1,6 @@
 .directory
 build
+doxygen
 */uninstall.sh
 spec_parser/known.hpp
 spec_parser/functions.hpp

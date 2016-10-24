@@ -8,6 +8,7 @@ namespace gapi{
 		public:
 			virtual ~object() = default;
 			
+			//! @returns the OpenGL object name/handle
 			GLuint get_handle() const noexcept{ return handle; }
 			
 		protected:
