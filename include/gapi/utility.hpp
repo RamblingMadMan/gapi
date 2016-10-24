@@ -6,7 +6,7 @@
 namespace gapi{
 	template<typename T>
 	GLuint get_handle(const T &t){
-		return t.handle;
+		return t.get_handle();
 	}
 }
 
