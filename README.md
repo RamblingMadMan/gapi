@@ -1,12 +1,12 @@
 GAPI
 ====
 
-Modern C++14 OpenGL 4.5 function loader and wrapper library
+Modern C++14 OpenGL function loader and wrapper library
 
 About
 =====
 
-OpenGL function loader and OpenGL 4.5 wrapper library taking advantage of modern C++ features.
+OpenGL function loader and wrapper library taking advantage of modern C++ features.
 
 Usage
 =====
